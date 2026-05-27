@@ -16,7 +16,7 @@ export const LABS: Lab[] = [
     id: 'lab-1',
     type: 'yaml-agent',
     domain: 2,
-    title: 'Custom agent minimo: que campos son obligatorios',
+    title: 'Minimal custom agent: which fields are required?',
     snippet: `---
 name: reviewer
 description: Reviews pull requests for security and test risk.
@@ -29,31 +29,31 @@ mcp-servers:
       - code-scanning/*
 ---
 Return findings with severity, file path, and rationale.`,
-    question: 'Cual es el campo obligatorio del frontmatter y que puede/no puede hacer este agente?',
-    answer: '**description** es el unico campo obligatorio segun la referencia oficial (name es opcional). El agente puede LEER y BUSCAR (tools: read, search), pero NO puede editar ni ejecutar. Tambien tiene acceso al MCP `github/security` con tools scoped a `code-scanning/*`. Ojo: en frontmatter de agente la clave es `mcp-servers` (con guion).',
-    whyItMatters: 'GPT Pro reporta que una pregunta del examen pide exactamente que campo del frontmatter es obligatorio. Es A:name B:description C:target D:user-invocable. La respuesta es B.',
+    question: 'What is the required frontmatter field, and what can / cannot this agent do?',
+    answer: '**description** is the only required field per the custom-agents-configuration reference (name is optional). The agent can READ and SEARCH (tools: read, search), but cannot edit or execute. It also gets access to the `github/security` MCP server scoped to `code-scanning/*`. Note: in agent frontmatter the key is `mcp-servers` (with a hyphen).',
+    whyItMatters: 'A direct exam question asks exactly which frontmatter field is required. Options are A: name, B: description, C: target, D: user-invocable. The answer is B.',
   },
   {
     id: 'lab-2',
     type: 'json-mcp',
     domain: 2,
     title: 'mcp-servers (YAML agent) vs mcpServers (JSON .mcp.json)',
-    snippet: `// archivo .mcp.json (config de proyecto)
+    snippet: `// .mcp.json (project config)
 {
   "mcpServers": {
     "local-docs": { "command": "node", "args": ["server.js"] },
     "remote-index": { "url": "https://mcp.example.com/sse" }
   }
 }`,
-    question: 'Cual es la diferencia entre esta clave y la que usaste en el lab 1?',
-    answer: 'En `.mcp.json` (config del proyecto/IDE) la clave es **mcpServers** (camelCase, sin guion). En frontmatter YAML del agente la clave es **mcp-servers** (kebab-case con guion). NO son intercambiables. `command + args` = transporte local/stdio. `url` con `/sse` = remoto SSE. Para HTTP normal pondrias solo `url` sin `/sse`.',
-    whyItMatters: 'Es el error mas reportado por candidatos beta. El examen pone snippets con la clave incorrecta y te pregunta "que esta mal". Si confundes los dos, fallas.',
+    question: 'How does this key differ from the one you used in lab 1?',
+    answer: 'In `.mcp.json` (project / IDE config) the key is **mcpServers** (camelCase, no hyphen). In agent frontmatter YAML the key is **mcp-servers** (kebab-case with hyphen). They are NOT interchangeable. `command + args` = local / stdio transport. `url` with `/sse` = remote SSE. For plain HTTP you would just use `url` without `/sse`.',
+    whyItMatters: 'The most reported confusion from beta candidates. The exam shows a snippet with the wrong key and asks "what is wrong here". Swap the two and you fail.',
   },
   {
     id: 'lab-3',
     type: 'yaml-actions',
     domain: 5,
-    title: 'Outputs entre jobs en GitHub Actions',
+    title: 'Outputs between jobs in GitHub Actions',
     snippet: `jobs:
   plan:
     outputs:
@@ -65,15 +65,15 @@ Return findings with severity, file path, and rationale.`,
     needs: plan
     steps:
       - run: echo "reviewing \${{ needs.plan.outputs.artifact_name }}"`,
-    question: 'Como viaja el dato entre los dos jobs?',
-    answer: 'El step `pack` escribe en `$GITHUB_OUTPUT` (archivo, no variable de entorno). El job `plan` expone ese output con `outputs.artifact_name` que apunta a `steps.pack.outputs.name`. El job `review` declara `needs: plan` y lo lee con `needs.plan.outputs.artifact_name`. **NO** es variable global, **NO** es step summary, **NO** es contexto del runner.',
-    whyItMatters: 'Pregunta tipica fill-blank o multiple-choice: que afirmacion es correcta sobre `echo "X=y" >> "$GITHUB_OUTPUT"`. La trampa es decir que es env global. Es output del step.',
+    question: 'How does data flow between these two jobs?',
+    answer: 'The `pack` step writes to `$GITHUB_OUTPUT` (a file, not an environment variable). The `plan` job then exposes that as `outputs.artifact_name`, pointing at `steps.pack.outputs.name`. The `review` job declares `needs: plan` and reads it via `needs.plan.outputs.artifact_name`. It is NOT a global env var, NOT a step summary, NOT a runner context.',
+    whyItMatters: 'Common fill-blank or multiple-choice. The trap is to claim it is a global env var. It is a step output.',
   },
   {
     id: 'lab-4',
     type: 'yaml-actions',
     domain: 6,
-    title: 'concurrency con cancel-in-progress',
+    title: 'concurrency with cancel-in-progress',
     snippet: `concurrency:
   group: \${{ github.workflow }}-\${{ github.ref }}
   cancel-in-progress: true
@@ -83,50 +83,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: ./deploy.sh`,
-    question: 'Que pasa si llega un nuevo run con la misma key mientras hay uno corriendo?',
-    answer: 'GitHub Actions cancela el run en curso. `concurrency.group` define la clave (aqui: workflow+ref, asi que cada branch tiene su propio cubo). `cancel-in-progress: true` significa "si llega uno nuevo con la misma key, mata el anterior". Util para CI continuo: solo el ultimo commit corre. **NO** es paralelo, **NO** afecta solo a strategy.matrix, **NO** reintenta fallidos.',
-    whyItMatters: 'Multiple-choice clasica. La trampa es decir "ejecuta todos en paralelo" o "reintenta fallidos". La respuesta exacta es "cancela runs en curso con la misma key".',
+    question: 'What happens when a new run with the same key arrives while one is already in progress?',
+    answer: 'GitHub Actions cancels the in-progress run. `concurrency.group` defines the key (here: workflow + ref, so each branch has its own bucket). `cancel-in-progress: true` means "if a new one arrives with the same key, kill the previous". Useful for continuous CI: only the latest commit runs. NOT parallel, NOT only for strategy.matrix, NOT retrying failures.',
+    whyItMatters: 'Typical multiple-choice. Trap distractors: "runs everything in parallel" or "retries failed runs". The exact answer is "cancels in-progress runs with the same key".',
   },
   {
     id: 'lab-5',
     type: 'log',
     domain: 3,
-    title: 'Sesion del agente reanudada',
+    title: 'Resumed agent session',
     snippet: `[copilot.cli]
 session.id=abc123
 loaded ~/.copilot/session-state/abc123/events.jsonl
 resume=true
 last_plan=edit deploy.yml
 current_branch=feature/agent-fix`,
-    question: 'Que esta pasando en este log y como prevenir drift?',
-    answer: 'El agente esta reanudando una sesion previa cargando estado local desde `~/.copilot/session-state/<id>/`. `resume=true` confirma que NO es sesion nueva. El `last_plan` y `current_branch` son artefactos durables que sobreviven entre sesiones. Para evitar drift: revalidar las citaciones de Copilot Memory contra el branch actual antes de reusarlas (las memorias de repo expiran a los 28 dias y se validan en cada uso).',
-    whyItMatters: 'Pregunta tipica: leer este log e identificar (A) sesion nueva (B) sesion reanudada (C) MCP deshabilitado (D) PR auto-creado. Respuesta: B.',
+    question: 'What is happening in this log, and how do you prevent drift?',
+    answer: 'The agent is resuming a previous session by loading local state from `~/.copilot/session-state/<id>/`. `resume=true` confirms this is NOT a new session. `last_plan` and `current_branch` are durable artifacts that survive across sessions. To avoid drift: re-validate Copilot Memory citations against the current branch before reusing them (repo memories expire after 28 days and are validated on every reuse).',
+    whyItMatters: 'Typical log-reading question. Options often include "new session", "resumed session", "MCP disabled", "PR auto-created". The answer here is the resumed session.',
   },
   {
     id: 'lab-6',
     type: 'audit',
     domain: 6,
-    title: 'Audit log con artifact.destroy',
+    title: 'Audit log with artifact.destroy',
     snippet: `action=artifact.destroy
 actor=octocat
 repo=org/app
 created_at=2026-05-24T09:14:22Z
 artifact_id=987654`,
-    question: 'Que concluyes de esta entrada y cuando ocurre?',
-    answer: 'Un usuario (`octocat`) elimino MANUALMENTE un artefacto de workflow del repo `org/app`. La event `artifact.destroy` se registra cuando alguien con permiso borra un artifact desde la UI o API. **NO** indica creacion (eso seria `artifact.create`), **NO** es deshabilitar workflow, **NO** es eliminar secret. El `actor` te dice quien fue, util para auditoria.',
-    whyItMatters: 'GitHub examen incluye conocimiento de events del audit log. Memorizar los principales: `artifact.create`, `artifact.destroy`, `workflow_run.*`, `repo.add_topic`, etc. La trampa es decir que es creacion.',
+    question: 'What does this entry tell you, and when is it logged?',
+    answer: 'A user (`octocat`) MANUALLY deleted a workflow artifact from `org/app`. The `artifact.destroy` event is logged when someone with permission deletes an artifact via UI or API. It is NOT creation (that is `artifact.create`), NOT a workflow disable, NOT a secret deletion. The `actor` field tells you who did it — useful for auditing.',
+    whyItMatters: 'The exam includes audit-log knowledge. Memorize the main events: `artifact.create`, `artifact.destroy`, `workflow_run.*`, `repo.add_topic`, etc. The trap is to claim it is creation.',
   },
   {
     id: 'lab-7',
     type: 'yaml-actions',
     domain: 2,
-    title: 'copilot-setup-steps.yml mal nombrado',
+    title: 'copilot-setup-steps.yml with the wrong job name',
     snippet: `name: Copilot environment setup
 on:
   workflow_dispatch:
 
 jobs:
-  prepare-environment:        # <-- ESTO
+  prepare-environment:        # <-- THIS
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -135,15 +135,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22`,
-    question: 'Que tiene de malo este workflow desde el punto de vista del Copilot cloud agent?',
-    answer: 'El job se llama `prepare-environment`. Para que Copilot lo use como setup-steps, el job DEBE llamarse exactamente `copilot-setup-steps`. Si no, Copilot lo ignora completamente y el agente arranca sin tu setup. El archivo conventionalmente debe ser `.github/workflows/copilot-setup-steps.yml` pero el nombre del archivo NO es lo critico; el nombre del job SI lo es.',
-    whyItMatters: 'Fill-blank tipica: "el job en copilot-setup-steps.yml debe llamarse: ______". Tambien aparece como detect-the-bug. Premio mayor por dominar este detalle.',
+    question: 'What is wrong here from the Copilot cloud agent point of view?',
+    answer: 'The job is named `prepare-environment`. For Copilot to use it as setup steps, the job MUST be named exactly `copilot-setup-steps`. If not, Copilot ignores it entirely and the agent boots without your setup. The file itself is conventionally `.github/workflows/copilot-setup-steps.yml`, but the file name is NOT the critical bit; the job name IS.',
+    whyItMatters: 'Typical fill-blank: "the job in copilot-setup-steps.yml must be named ______". Also appears as detect-the-bug. Big payoff for nailing this detail.',
   },
   {
     id: 'lab-8',
     type: 'hook',
     domain: 6,
-    title: 'Hook preToolUse de Copilot',
+    title: 'Copilot preToolUse hook',
     snippet: `// .github/hooks/pre-tool-use.json
 {
   "event": "preToolUse",
@@ -151,47 +151,47 @@ jobs:
   "action": "deny",
   "reason": "Shell access requires approval. Open an issue and request escalation."
 }`,
-    question: 'Que hace este hook y como se usa?',
-    answer: 'Antes de que el agente ejecute la herramienta `execute` (shell), el hook se dispara y deniega la accion con un mensaje. Es un guardrail preventivo: el agente NUNCA llega a correr el shell command. Los hooks viven en `.github/hooks/*.json`. Los eventos comunes: `preToolUse` (antes de la herramienta) y `postToolUse` (despues). Util para forzar plan-first o bloquear acciones destructivas.',
-    whyItMatters: 'Match-pairs o multi-select: identificar para que sirve cada tipo de hook y donde van. La ruta `.github/hooks/` y los eventos `preToolUse/postToolUse` son fill-blank candidates.',
+    question: 'What does this hook do and how is it used?',
+    answer: 'Before the agent runs the `execute` tool (shell), the hook fires and denies the action with a reason. It is a preventive guardrail: the agent never actually runs the shell command. Hooks live under `.github/hooks/*.json`. Common events: `preToolUse` (before the tool) and `postToolUse` (after). Useful to enforce plan-first behavior or to block destructive actions.',
+    whyItMatters: 'Match-pairs or multi-select: identify what each hook type does and where it lives. The path `.github/hooks/` and the events `preToolUse / postToolUse` are fill-blank candidates.',
   },
   {
     id: 'lab-9',
     type: 'cli',
     domain: 6,
     title: '--no-ask-user vs --autopilot (Copilot CLI)',
-    snippet: `# Caso A
+    snippet: `# Case A
 copilot --no-ask-user "Refactor the payment service"
 
-# Caso B
+# Case B
 copilot --autopilot --max-autopilot-continues 5 "Refactor the payment service"`,
-    question: 'Cual es la diferencia practica entre los dos comandos?',
-    answer: '`--no-ask-user` (Caso A): el agente NO te hace preguntas clarificadoras, pero NO continua multi-paso por si solo. Si necesita siguiente paso del modelo, se detiene. `--autopilot` (Caso B): el agente continua autonomamente paso a paso, hasta 5 continuaciones (`--max-autopilot-continues 5`). Es multi-step real. Combinarlos no es redundante: autopilot te da el loop, max-continues te da la barandilla. `--yolo` permitiria todo acceso a tools/paths/URLs sin pedir permisos.',
-    whyItMatters: 'GOTCHA #2 del cheatsheet. Casi todos los examenes meten esta distincion. Si la pregunta pide "modo donde continua solo varios pasos", es `--autopilot`. Si pide "supresion de preguntas", es `--no-ask-user`.',
+    question: 'What is the practical difference between these two commands?',
+    answer: '`--no-ask-user` (Case A): the agent does NOT ask clarifying questions, but does NOT continue multi-step on its own. If it needs another model step it stops. `--autopilot` (Case B): the agent continues autonomously step by step, up to 5 continuations (`--max-autopilot-continues 5`). True multi-step. Combining them is not redundant: autopilot gives you the loop, max-continues gives you the bound. `--yolo` would permit all tools / paths / URLs with no prompt.',
+    whyItMatters: 'Cheatsheet gotcha #2. Almost every exam embeds this distinction. If the question asks "the mode where the agent continues several steps on its own", it is `--autopilot`. If it asks "suppress clarifying questions", it is `--no-ask-user`.',
   },
   {
     id: 'lab-10',
     type: 'cli',
     domain: 5,
-    title: '/delegate y /fleet en Copilot CLI',
-    snippet: `# Sesion interactiva
+    title: '/delegate and /fleet in the Copilot CLI',
+    snippet: `# Interactive session
 > /agent reviewer
-> Review the PR #42 for security issues.
+> Review PR #42 for security issues.
 
 > /delegate planner
 > Break the migration into 3 phases.
 
 > /fleet matrix
 > Run reviewer, auditor and consolidator on PR #42.`,
-    question: 'Que hace cada slash command?',
-    answer: '`/agent <name>`: cambia al custom agent llamado <name>. `/delegate <name>`: delega un sub-task a otro agent (sub-agent emite eventos subagent.selected/.started/.completed/.failed/.deselected). `/fleet <pattern>`: ejecuta multiples sub-agents en paralelo segun el plan decompuesto. `/fleet` es el caballo de batalla para multi-agent en CLI.',
-    whyItMatters: 'GPT Pro y Grok ambos confirman que CLI cae mucho. Multi-select pidiendo cuales son slash commands de delegacion. La trampa es incluir `/yolo` (existe pero es para permisos, no delegacion) o `/allow-all`.',
+    question: 'What does each slash command do?',
+    answer: '`/agent <name>`: switches to the custom agent named <name>. `/delegate <name>`: delegates a sub-task to another agent (the sub-agent emits subagent.selected / .started / .completed / .failed / .deselected events). `/fleet <pattern>`: runs multiple sub-agents in parallel based on the decomposed plan. `/fleet` is the workhorse for multi-agent in the CLI.',
+    whyItMatters: 'Several sources confirm the CLI is heavily tested. Multi-select asking which are delegation slash commands. The trap is to include `/yolo` (exists, but it is for permissions, not delegation) or `/allow-all`.',
   },
   {
     id: 'lab-11',
     type: 'policy',
     domain: 6,
-    title: 'Branch protection + ruleset (clasificacion preventive/detective/corrective)',
+    title: 'Branch protection + ruleset (preventive/detective/corrective)',
     snippet: `# Settings -> Rules -> Rulesets
 - Name: "Protect main"
   Enforcement: Active
@@ -201,23 +201,23 @@ copilot --autopilot --max-autopilot-continues 5 "Refactor the payment service"`,
     - Require approval from a second user with write permissions
     - Require status checks: [ci, codeql-analysis]
     - Block force pushes`,
-    question: 'Clasifica branch protection, CodeQL y "revert PR" como control preventive, detective o corrective.',
-    answer: '**Branch protection = preventive**: impide que codigo malo llegue a main en primer lugar. **CodeQL = detective**: corre despues del push/PR y DETECTA vulnerabilidades, pero no las bloquea por si solo (a menos que lo metas como required status check). **Revert PR = corrective**: cuando ya algo se merged y resulto malo, lo revierte. Los tres se complementan: prevenir, detectar, corregir.',
-    whyItMatters: 'Pregunta directa del PDF de GPT Pro: ordenar los tres en preventive/detective/corrective. Respuesta: A (preventive, detective, corrective).',
+    question: 'Classify branch protection, CodeQL and "revert PR" as preventive, detective, or corrective controls.',
+    answer: '**Branch protection = preventive**: it stops bad code from reaching main in the first place. **CodeQL = detective**: it runs after push/PR and DETECTS vulnerabilities; it does not block by itself unless you wire it as a required status check. **Revert PR = corrective**: when something bad has already been merged, you revert it. The three layers complement each other: prevent, detect, correct.',
+    whyItMatters: 'Direct question from the public sources: order these three as preventive / detective / corrective. The answer is A (preventive, detective, corrective).',
   },
   {
     id: 'lab-12',
     type: 'yaml-actions',
     domain: 6,
-    title: 'Workflow del agente esperando aprobacion humana',
+    title: 'Copilot PR waiting for human approval',
     snippet: `pull_request:
   author: github-copilot[bot]
   changed_files:
     - .github/workflows/deploy.yml
 status: waiting_for_approval
 message: "Approve and run workflows to start CI"`,
-    question: 'Por que esta el PR de Copilot bloqueado y como lo desbloqueas?',
-    answer: 'Por default, los workflows de Actions estan BLOQUEADOS en PRs creados por Copilot cloud agent. Necesita que un usuario con write access haga click en "Approve and run workflows" en la pestana Actions del PR. Esto es safety by design: previene que el agente dispare CI con permisos elevados sin revision humana. Si el PR ademas toca `.github/workflows/*`, doble candado: ese path normalmente esta bajo CODEOWNERS y/o rulesets adicionales.',
-    whyItMatters: 'Gotcha del cheatsheet (#14). Pregunta tipica: "que pasa por default con los workflows en PRs de Copilot". La respuesta es "bloqueados hasta Approve and run workflows".',
+    question: 'Why is this Copilot PR blocked, and how do you unblock it?',
+    answer: 'By default, Actions workflows are BLOCKED on PRs opened by the Copilot cloud agent. It needs someone with write access to click "Approve and run workflows" on the PR Actions tab. This is safety by design: it prevents the agent from triggering CI with elevated permissions without human review. If the PR also touches `.github/workflows/*`, that path is usually under CODEOWNERS and/or additional rulesets — double gate.',
+    whyItMatters: 'Cheatsheet gotcha #14. Typical question: "what happens by default to workflows on Copilot PRs". Answer: "blocked until Approve and run workflows".',
   },
 ]

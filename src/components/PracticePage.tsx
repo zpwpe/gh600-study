@@ -66,24 +66,24 @@ export default function PracticePage({ state, setState }: PracticePageProps) {
   return (
     <div className="space-y-5 fade-up">
       <header>
-        <div className="chip chip-purple mb-2">PRACTICA · APRENDE FALLANDO</div>
+        <div className="chip chip-purple mb-2">PRACTICE · LEARN BY MISSING</div>
         <h1 className="text-3xl font-display font-semibold text-ink">
-          {ALL_QUESTIONS.length} preguntas reales tipo examen
+          {ALL_QUESTIONS.length} exam-style scenario questions
         </h1>
         <p className="text-ink-dim mt-1 max-w-2xl">
-          Cada pregunta tiene su explicacion oficial. Filtra por dominio o por las que fallaste para
-          reforzar lo flojo. Tu progreso se guarda solo.
+          Every question ships with an explanation. Filter by domain or by what you missed to drill
+          the weak spots. Progress saves automatically.
         </p>
       </header>
 
       <div className="card p-4 grid lg:grid-cols-3 gap-4">
         <div>
           <label className="block text-[11px] uppercase font-semibold tracking-wider text-ink-mute mb-2">
-            Dominio
+            Domain
           </label>
           <div className="flex flex-wrap gap-1.5">
             <FilterPill active={domain === 'all'} onClick={() => { setDomain('all'); setIdx(0) }}>
-              Todos
+              All
             </FilterPill>
             {DOMAINS.map((d) => (
               <FilterPill
@@ -98,38 +98,38 @@ export default function PracticePage({ state, setState }: PracticePageProps) {
         </div>
         <div>
           <label className="block text-[11px] uppercase font-semibold tracking-wider text-ink-mute mb-2">
-            Modo
+            Mode
           </label>
           <div className="flex flex-wrap gap-1.5">
             <FilterPill active={modeFilter === 'all'} onClick={() => { setModeFilter('all'); setIdx(0) }}>
-              Todas
+              All
             </FilterPill>
             <FilterPill active={modeFilter === 'unseen'} onClick={() => { setModeFilter('unseen'); setIdx(0) }}>
-              Sin ver
+              Unseen
             </FilterPill>
             <FilterPill active={modeFilter === 'wrong'} onClick={() => { setModeFilter('wrong'); setIdx(0) }}>
-              Falladas
+              Missed
             </FilterPill>
             <FilterPill active={modeFilter === 'flagged'} onClick={() => { setModeFilter('flagged'); setIdx(0) }}>
-              ⚑ Marcadas
+              ⚑ Flagged
             </FilterPill>
           </div>
         </div>
         <div>
           <label className="block text-[11px] uppercase font-semibold tracking-wider text-ink-mute mb-2">
-            Orden
+            Order
           </label>
           <div className="flex flex-wrap gap-1.5">
             <FilterPill active={!shuffled} onClick={() => { setShuffled(false); setIdx(0) }}>
-              Por dominio
+              By domain
             </FilterPill>
             <FilterPill active={shuffled} onClick={() => { setShuffled(true); setIdx(0) }}>
-              Aleatorio
+              Shuffle
             </FilterPill>
           </div>
           <div className="text-[11px] text-ink-mute mt-3">
-            Vistas: <span className="text-ink">{seen}</span> · Correctas:{' '}
-            <span className="text-good">{correctCount}</span> · Pool actual:{' '}
+            Seen: <span className="text-ink">{seen}</span> · Correct:{' '}
+            <span className="text-good">{correctCount}</span> · Current pool:{' '}
             <span className="text-ink">{pool.length}</span>
           </div>
         </div>
@@ -151,11 +151,9 @@ export default function PracticePage({ state, setState }: PracticePageProps) {
         />
       ) : (
         <div className="card p-8 text-center">
-          <h2 className="font-display font-semibold text-ink">
-            No hay preguntas en este filtro
-          </h2>
+          <h2 className="font-display font-semibold text-ink">No questions match this filter</h2>
           <p className="text-ink-dim text-sm mt-1">
-            Cambia el dominio o el modo (por ejemplo, "Todas") para ver mas.
+            Try a different domain or mode (for example "All") to see more.
           </p>
         </div>
       )}

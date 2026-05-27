@@ -40,7 +40,7 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
   }
 
   const abandonMock = () => {
-    if (!confirm('Abandonar este mock? No se guardara como completado.')) return
+    if (!confirm('Abandon this mock? It will not be saved as completed.')) return
     setState((prev) => ({ ...prev, activeMock: undefined }))
   }
 
@@ -89,33 +89,30 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
     return (
       <div className="space-y-6 fade-up">
         <header>
-          <div className="chip chip-accent mb-2">MOCK EXAM · SIMULA EL EXAMEN REAL</div>
+          <div className="chip chip-accent mb-2">MOCK EXAM · SIMULATE THE REAL THING</div>
           <h1 className="text-3xl font-display font-semibold text-ink">
-            {QUESTIONS_PER_MOCK} preguntas · 120 min · 700 / 1000 para aprobar
+            {QUESTIONS_PER_MOCK} questions · 120 min · 700 / 1000 to pass
           </h1>
           <p className="text-ink-dim mt-1 max-w-2xl">
-            Pesos por dominio identicos al examen real. Cronometrado. Sin explicaciones hasta el
-            final. Cuando termines te muestro el score total y el desglose por dominio para que
-            sepas que reforzar.
+            Per-domain weights identical to the real exam. Timed. No explanations until you submit.
+            When you finish you get the total score plus a per-domain breakdown so you know where
+            to drill next.
           </p>
         </header>
 
         <div className="card p-6 border-accent/30">
           <h2 className="text-lg font-display font-semibold text-ink mb-3">
-            Antes de empezar, leer:
+            Before you start, read this:
           </h2>
           <ul className="space-y-2 text-sm text-ink-dim leading-relaxed">
-            <li>▸ Cierra Notion, Slack, WhatsApp. Haz el mock como si fuera el real.</li>
-            <li>▸ Haz UN solo intento al dia. El segundo dia hazlo nuevamente con preguntas distintas (las preguntas son seleccionadas aleatoriamente y rotadas).</li>
-            <li>
-              ▸ Si terminas antes, NO revises tus respuestas — usa el tiempo para repasar las que
-              marcaste con ⚑.
-            </li>
-            <li>▸ Al terminar veras qué fallaste con la explicación de cada error.</li>
+            <li>▸ Close Notion, Slack, WhatsApp. Run the mock like the real thing.</li>
+            <li>▸ One attempt per day. Re-run it later with different questions (the bank rotates randomly each time).</li>
+            <li>▸ If you finish early, do NOT review your answers — use the time to revisit the ones you flagged with ⚑.</li>
+            <li>▸ After you submit you see what you missed with the explanation per error.</li>
           </ul>
           <div className="mt-5">
             <button onClick={startMock} className="btn btn-primary">
-              Empezar el mock ahora
+              Start the mock now
             </button>
           </div>
         </div>
@@ -124,7 +121,7 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
           <div className="card p-5">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-xs text-ink-mute font-mono">ULTIMO MOCK</div>
+                <div className="text-xs text-ink-mute font-mono">LATEST MOCK</div>
                 <div className="text-2xl font-display font-bold text-ink">
                   Score: {lastRun.score} / 1000
                 </div>
@@ -137,7 +134,7 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
                   (lastRun.score ?? 0) >= META.passing_score ? 'chip-good' : 'chip-bad'
                 }`}
               >
-                {(lastRun.score ?? 0) >= META.passing_score ? 'PASARIAS' : 'NO PASARIAS'}
+                {(lastRun.score ?? 0) >= META.passing_score ? 'WOULD PASS' : 'WOULD NOT PASS'}
               </div>
             </div>
             {lastRun.byDomain && (
@@ -146,7 +143,7 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
                   const pct = Math.round((r.correct / r.total) * 100)
                   return (
                     <div key={d} className="border border-line rounded-lg p-2">
-                      <div className="text-xs font-mono text-ink-mute">Dominio {d}</div>
+                      <div className="text-xs font-mono text-ink-mute">Domain {d}</div>
                       <div className="text-sm text-ink">{r.correct}/{r.total} · {pct}%</div>
                       <div className="h-1.5 bg-bg-3 rounded-full mt-1 overflow-hidden">
                         <div
@@ -175,7 +172,6 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
   const answered = Object.keys(active.answers).length
 
   if (remaining <= 0) {
-    // Auto finish
     setTimeout(finishMock, 0)
   }
 
@@ -185,9 +181,9 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
     <div className="space-y-5 fade-up">
       <div className="card p-4 flex items-center justify-between sticky top-2 z-10 backdrop-blur bg-bg-1/80">
         <div>
-          <div className="text-xs text-ink-mute font-mono">MOCK EN CURSO</div>
+          <div className="text-xs text-ink-mute font-mono">MOCK IN PROGRESS</div>
           <div className="text-sm text-ink">
-            Pregunta {idx + 1} / {questions.length} · Respondidas:{' '}
+            Question {idx + 1} / {questions.length} · Answered:{' '}
             <span className="text-good">{answered}</span>
           </div>
         </div>
@@ -195,7 +191,7 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
           {String(mm).padStart(2, '0')}:{String(ss).padStart(2, '0')}
         </div>
         <button onClick={abandonMock} className="btn btn-danger text-xs">
-          Abandonar
+          Abandon
         </button>
       </div>
 
@@ -238,13 +234,13 @@ export default function MockExamPage({ state, setState }: MockExamPageProps) {
 
       {isLast && (
         <div className="card p-5 border-accent/40">
-          <h2 className="font-display font-semibold text-ink">Listo para entregar?</h2>
+          <h2 className="font-display font-semibold text-ink">Ready to submit?</h2>
           <p className="text-sm text-ink-dim mt-1">
-            Has respondido {answered} de {questions.length}. Las que no respondiste cuentan como
-            incorrectas.
+            You have answered {answered} of {questions.length}. Unanswered questions count as
+            incorrect.
           </p>
           <button onClick={finishMock} className="btn btn-primary mt-3">
-            Entregar y ver score
+            Submit and see score
           </button>
         </div>
       )}

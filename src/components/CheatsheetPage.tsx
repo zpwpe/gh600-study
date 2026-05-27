@@ -9,134 +9,139 @@ interface Gotcha {
 
 const GOTCHAS: Gotcha[] = [
   {
-    title: 'El firewall del Copilot SOLO cubre procesos lanzados por Bash',
-    detail: 'NO cubre MCP servers ni copilot-setup-steps.yml',
-    why: 'Esta es la trampa numero uno. Si la pregunta dice "como aseguras egress en todas las herramientas del agente", el firewall no te alcanza solo: tienes que combinar con scoping de MCP y permisos del setup-steps.',
+    title: 'The Copilot firewall ONLY covers Bash-launched processes',
+    detail: 'It does NOT cover MCP servers or copilot-setup-steps.yml.',
+    why: 'Trap #1. If the question asks "how do you secure egress across all agent tools", the firewall alone is not enough: you have to combine it with MCP scoping and setup-steps permissions.',
   },
   {
-    title: '--no-ask-user NO es lo mismo que --autopilot',
-    detail: '--no-ask-user suprime preguntas. --autopilot habilita continuacion multi-step.',
-    why: 'Casi todos los examenes meten esta distincion. Si la pregunta pide "modo donde el agente continua solo varios pasos", la respuesta es --autopilot. Para limitarlo usas --max-autopilot-continues.',
+    title: '--no-ask-user is NOT the same as --autopilot',
+    detail: '--no-ask-user suppresses clarifying questions. --autopilot enables multi-step continuation.',
+    why: 'Almost every exam embeds this distinction. If the question asks "the mode where the agent continues several steps on its own", the answer is --autopilot. To bound it you use --max-autopilot-continues.',
   },
   {
-    title: 'Custom agents viven en `.github/agents/*.agent.md`',
-    detail: 'Para repos. Para org: `/agents/*.agent.md` dentro del repo `.github-private`.',
-    why: 'Cae en fill-blank. Memoriza la extension exacta `.agent.md` y el path.',
+    title: 'Custom agents live at `.github/agents/*.agent.md`',
+    detail: 'Repo scope. Org scope: `/agents/*.agent.md` inside the `.github-private` repo.',
+    why: 'Shows up as fill-blank. Memorize the exact `.agent.md` extension and the path.',
   },
   {
-    title: 'Copilot Memory expira a los 28 dias sin uso',
-    detail: 'No 7, no 14, no 30. EXACTAMENTE 28 dias. Se resetea con validacion exitosa.',
-    why: 'Hay una pregunta directa sobre el numero. Si dudas, la respuesta es 28.',
+    title: 'Copilot Memory entries expire after 28 days of non-use',
+    detail: 'Not 7, not 14, not 30. EXACTLY 28 days. Successful validation resets the timer.',
+    why: 'There is a direct question about the number. If you hesitate, the answer is 28.',
   },
   {
-    title: 'Cloud agent NO soporta OAuth en remote MCP servers',
-    detail: 'Tienes que usar PAT u otro token-based auth.',
-    why: 'Pregunta tipica de "cual statement es correcto". OAuth no funciona en cloud agent para remote MCP.',
+    title: 'Cloud agent does NOT support OAuth on remote MCP servers',
+    detail: 'Use PAT or another token-based auth.',
+    why: 'Classic "which statement is correct" question. OAuth does not work on the cloud agent for remote MCP.',
   },
   {
-    title: 'Secrets de MCP necesitan prefijo `COPILOT_MCP_`',
-    detail: 'En la config JSON: `$COPILOT_MCP_NOMBRE_DEL_SECRETO`',
-    why: 'Cae como fill-blank o como detect-the-bad-config. Si veo `env: {TOKEN: "$TOKEN"}` ese hard-coded esta MAL. La forma correcta es referenciar via `$COPILOT_MCP_*`.',
+    title: 'MCP secrets need the `COPILOT_MCP_` prefix',
+    detail: 'In JSON config: `$COPILOT_MCP_SECRET_NAME`.',
+    why: 'Fill-blank or detect-the-bad-config. If you see `env: {TOKEN: "$TOKEN"}` that hard-coded form is WRONG. The correct form references `$COPILOT_MCP_*`.',
   },
   {
-    title: 'Precedencia en custom agents y MCP: repo > org > enterprise',
-    detail: '"Lowest Level Wins". El scope mas cercano al codigo gana.',
-    why: 'Si una pregunta dice "ambos definidos a nivel repo y org, cual gana", responde REPO.',
+    title: 'Precedence for custom agents and MCP: repo > org > enterprise',
+    detail: '"Lowest level wins". The scope closest to the code wins.',
+    why: 'If a question says "both defined at repo and org level — which wins", answer REPO.',
   },
   {
-    title: 'El job en copilot-setup-steps.yml DEBE llamarse `copilot-setup-steps`',
-    detail: 'Si lo nombras distinto, Copilot lo ignora completamente.',
-    why: 'Pregunta fill-blank casi garantizada. Tambien aparece como detect-the-bug.',
+    title: 'The job in copilot-setup-steps.yml MUST be named `copilot-setup-steps`',
+    detail: 'If you name it anything else, Copilot ignores it entirely.',
+    why: 'Near-guaranteed fill-blank. Also shows up as detect-the-bug.',
   },
   {
-    title: 'MCP registry: base URL SIN /v0.1/servers al final',
-    detail: 'El cliente construye el path. Si pones la url completa, falla.',
-    why: 'El endpoint que se pide es GET /v0.1/servers. Tu pones solo la base.',
+    title: 'MCP registry: base URL only, no /v0.1/servers suffix',
+    detail: 'The client builds the path. If you paste the full URL, it fails.',
+    why: 'The endpoint the client requests is GET /v0.1/servers. You provide only the base.',
   },
   {
-    title: 'Cloud agent soporta SOLO Ubuntu x64 y Windows 64-bit',
-    detail: 'NO macOS, NO ARM64. GitHub-hosted o self-hosted EPHEMERAL.',
-    why: 'Multi-select clasico. Las opciones macOS y ARM64 son distractoras.',
+    title: 'Cloud agent supports ONLY Ubuntu x64 and Windows 64-bit',
+    detail: 'No macOS, no ARM64. GitHub-hosted or self-hosted EPHEMERAL.',
+    why: 'Classic multi-select. macOS and ARM64 are distractors.',
   },
   {
-    title: 'Cloud agent solo consume TOOLS de MCP, no resources ni prompts',
-    detail: 'MCP spec define tools/resources/prompts. Cloud agent ignora resources y prompts.',
-    why: 'Aparece como statement-true/false. Si la pregunta dice "cloud agent usa resources del MCP", es FALSO.',
+    title: 'Cloud agent only consumes MCP TOOLS, not resources or prompts',
+    detail: 'MCP spec defines tools/resources/prompts. The cloud agent ignores resources and prompts.',
+    why: 'Shows up as statement-true/false. If the question says "cloud agent uses MCP resources", that is FALSE.',
   },
   {
-    title: '5 eventos del lifecycle de sub-agent',
-    detail: 'subagent.selected, .started, .completed, .failed, .deselected',
-    why: 'Multi-select. Memoriza los 5 nombres exactos.',
+    title: 'The 5 sub-agent lifecycle events',
+    detail: 'subagent.selected, .started, .completed, .failed, .deselected.',
+    why: 'Multi-select. Memorize the exact 5 names.',
   },
   {
-    title: '`disable-model-invocation: true` reemplaza al viejo `infer`',
-    detail: 'Bloquea seleccion automatica del agente por el modelo (manual aun funciona).',
-    why: 'Si una opcion menciona `infer: false`, es la propiedad retirada. La buena es disable-model-invocation.',
+    title: '`disable-model-invocation: true` replaces the old `infer`',
+    detail: 'Blocks automatic selection of the agent by the model. Manual selection still works.',
+    why: 'If an option mentions `infer: false`, that is the retired property. The correct one is disable-model-invocation.',
   },
   {
-    title: 'Workflows de Actions estan BLOQUEADOS en PRs de Copilot por default',
-    detail: 'Necesitan "Approve and run workflows" de un user con write access.',
-    why: 'Esto es safety by design para evitar que el agente dispare CI con permisos elevados. Apparece como "que pasa por default".',
+    title: 'Actions workflows are BLOCKED on Copilot PRs by default',
+    detail: 'They need "Approve and run workflows" from a user with write access.',
+    why: 'Safety by design — prevents the agent from triggering CI with elevated permissions. Often phrased as "what happens by default".',
   },
   {
-    title: 'Custom allowlist: domain (cubre subdominios) vs URL (scheme + path)',
-    detail: 'Domain `contoso.corp` cubre `*.contoso.corp`. URL `https://...` es scheme y path scoped.',
-    why: 'Multi-select tipica. Wildcards tipo `*.contoso.corp` NO son formato valido (es domain).',
+    title: 'Custom allowlist: domain (covers subdomains) vs URL (scheme + path)',
+    detail: 'Domain `contoso.corp` covers `*.contoso.corp`. URL `https://...` is scheme-and-path scoped.',
+    why: 'Typical multi-select. Glob wildcards like `*.contoso.corp` are NOT valid format (use domain).',
   },
   {
-    title: 'Repo facts vs user preferences en Copilot Memory',
-    detail: 'Repo facts = convenciones del proyecto, con citaciones. User prefs = preferencias personales, atraviesan repos.',
-    why: 'Code review usa SOLO repo facts, no user prefs. Si una pregunta dice "Copilot code review uso mis user prefs", esta MAL.',
+    title: 'Repo facts vs user preferences in Copilot Memory',
+    detail: 'Repo facts = project conventions with citations. User preferences = personal preferences that cross repos.',
+    why: 'Code review uses ONLY repo facts, never user preferences. A question claiming "Copilot code review uses my user prefs" is WRONG.',
   },
   {
-    title: 'Eyes-on emoji (👀) = Copilot ack y procesando',
-    detail: 'No es un "like". Es senal de que el agente reconocio el comentario.',
-    why: 'Aparece en match-pairs de observability. No confundir con verified badge ni con session logs.',
+    title: 'The Eyes-on emoji (👀) = Copilot has acknowledged + is processing',
+    detail: 'Not a "like" reaction. It signals the agent has seen the comment.',
+    why: 'Shows up in observability match-pairs. Do not confuse with the verified badge or session logs.',
   },
   {
-    title: 'mcp-servers (YAML agent) vs mcpServers (JSON .mcp.json)',
-    detail: 'En frontmatter del .agent.md va con guion. En el archivo de config .mcp.json va camelCase.',
-    why: 'El error mas reportado por candidatos beta. El examen te pone snippet con la key incorrecta y te pregunta que esta mal. Memoriza: agente=kebab, config=camel.',
+    title: 'mcp-servers (YAML agent frontmatter) vs mcpServers (JSON .mcp.json)',
+    detail: 'In the .agent.md frontmatter the key is kebab-case. In the .mcp.json config file it is camelCase.',
+    why: 'Most-reported confusion from beta candidates. The exam shows a snippet with the wrong key and asks what is wrong. Memorize: agent = kebab, config = camel.',
   },
   {
-    title: 'description es el campo OBLIGATORIO del frontmatter, no name',
-    detail: 'name es opcional. description es necesaria. user-invocable, target, tools son opcionales.',
-    why: 'Pregunta directa de la guia: cual es el campo obligatorio del frontmatter YAML de un agent. La trampa es elegir name.',
+    title: '`description` is the REQUIRED frontmatter field, not `name`',
+    detail: '`name` is optional. `description` is required. `user-invocable`, `target`, `tools` are optional.',
+    why: 'Direct question from the guide: which field is required in the custom-agent YAML frontmatter? The trap is to pick `name`.',
   },
   {
-    title: 'search (codebase) vs web (URLs externas)',
-    detail: 'search = grep/glob sobre el repo. web = WebSearch y WebFetch a URLs externas.',
-    why: 'Multi-select tipica. La trampa es decir que search hace busqueda web. NO. Son tools distintas.',
+    title: '`search` (codebase) vs `web` (external URLs)',
+    detail: '`search` = grep/glob over the repo. `web` = WebSearch and WebFetch on external URLs.',
+    why: 'Typical multi-select. Trap is claiming `search` does web search. It does NOT. Two different tools.',
   },
   {
-    title: 'Controles: branch protection = preventive, CodeQL = detective, revert PR = corrective',
-    detail: 'Preventive bloquea antes. Detective encuentra despues. Corrective arregla lo ya merged.',
-    why: 'Pregunta directa: ordena estos tres como preventive/detective/corrective. Respuesta: A (en ese orden).',
+    title: 'Controls: branch protection = preventive, CodeQL = detective, revert PR = corrective',
+    detail: 'Preventive blocks before. Detective finds after. Corrective fixes what was already merged.',
+    why: 'Direct question: order these three as preventive/detective/corrective. Answer: A, in that order.',
   },
   {
-    title: '$GITHUB_OUTPUT NO es variable de entorno',
-    detail: 'Escribir `echo "X=y" >> "$GITHUB_OUTPUT"` crea output del STEP, no env global.',
-    why: 'La trampa de la pregunta: A) crea env global, B) crea step output, C) escribe en summary, D) modifica needs. Respuesta: B.',
+    title: '$GITHUB_OUTPUT is NOT an environment variable',
+    detail: 'Writing `echo "X=y" >> "$GITHUB_OUTPUT"` creates a STEP output, not a global env.',
+    why: 'The trap options: A) global env, B) step output, C) writes to summary, D) modifies needs. Answer: B.',
   },
   {
-    title: 'artifact.destroy en audit log = eliminacion MANUAL de un artifact',
-    detail: 'No es creacion. No es disable. Es destroy manual con actor identificado.',
-    why: 'Pregunta de leer un audit log entry e identificar que paso. Memoriza los events principales del audit log.',
+    title: 'artifact.destroy in the audit log = MANUAL artifact deletion',
+    detail: 'Not creation. Not disable. It is a manual destroy with the actor identified.',
+    why: 'Read-the-audit-log question. Memorize the main audit log events.',
   },
   {
-    title: '~/.copilot/session-state/<id>/ es donde vive el estado para resume',
-    detail: 'events.jsonl + metadata. `resume=true` en log indica sesion reanudada (no nueva).',
-    why: 'Pregunta de log reading. Si ves `resume=true` y carga desde session-state, es sesion reanudada. Tipica trampa: decir "MCP deshabilitado" o "PR auto-creado".',
+    title: '~/.copilot/session-state/<id>/ is where state lives for resume',
+    detail: 'events.jsonl + metadata. `resume=true` in the log means resumed session, not new.',
+    why: 'Log-reading question. If you see `resume=true` and a load from session-state, that is a resumed session. Trap distractors: "MCP disabled" or "PR auto-created".',
   },
   {
-    title: 'NO hay acceso a Microsoft Learn durante el examen GH-600',
-    detail: 'Tampoco hay docs de GitHub. Es proctored, ingles only.',
-    why: 'No te puedes recostar en "buscarlo en vivo". Llega con paths, comandos y diferencias de keys YA memorizadas.',
+    title: 'No access to Microsoft Learn during the GH-600 exam',
+    detail: 'No GitHub Docs either. Proctored, English-only.',
+    why: 'You cannot lean on "look it up live". Walk in with paths, commands, and key differences already memorized.',
   },
   {
-    title: 'Si tu idioma no esta, pide 30 min extra',
-    detail: 'GH-600 esta solo en ingles. Microsoft permite +30 min para no-anglo.',
-    why: 'Politica logistica oficial. Pide la accommodation cuando agendas. Para ti es 120 + 30 = 150 min.',
+    title: 'If your language is not offered, request +30 min extra',
+    detail: 'GH-600 is English-only. Microsoft allows +30 min for non-native English speakers.',
+    why: 'Official accommodation policy. Request it at booking time. That makes it 120 + 30 = 150 min.',
+  },
+  {
+    title: '`concurrency.cancel-in-progress: true` cancels in-progress runs with the same key',
+    detail: 'Top-level `concurrency.group` defines the key, `cancel-in-progress: true` enforces the cancel.',
+    why: 'Multi-select / scenario question. Trap distractors: "runs everything in parallel" or "retries failed runs".',
   },
 ]
 
@@ -159,33 +164,34 @@ interface CommandRef {
 }
 
 const PATHS: PathRef[] = [
-  { path: '.github/agents/*.agent.md', desc: 'Custom agents (scope repo). Frontmatter YAML + cuerpo Markdown.' },
-  { path: '/agents/*.agent.md (en .github-private)', desc: 'Custom agents a nivel ORG. Repo `.github-private` lo carga toda la org.' },
-  { path: '.github/copilot-instructions.md', desc: 'Instrucciones generales a nivel repo, consumidas por Copilot en todas las superficies.' },
-  { path: '.github/instructions/**/*.instructions.md', desc: 'Instrucciones especificas por path (glob). Mas granulares.' },
-  { path: '.github/hooks/*.json', desc: 'Hooks preToolUse / postToolUse para bloquear o auditar herramientas.' },
-  { path: '.github/workflows/copilot-setup-steps.yml', desc: 'Pre-provision del entorno ephemeral del Copilot cloud agent.' },
-  { path: '.mcp.json', desc: 'Config de MCP servers a nivel proyecto/IDE. Key: mcpServers (camelCase).' },
-  { path: 'AGENTS.md', desc: 'Instrucciones de agente para Copilot CLI. COPILOT_CUSTOM_INSTRUCTIONS_DIRS extiende paths.' },
-  { path: '~/.copilot/session-state/<id>/events.jsonl', desc: 'Estado durable de sesion. Permite resume.' },
-  { path: '$GITHUB_OUTPUT', desc: 'Archivo de outputs del step. `echo "k=v" >> "$GITHUB_OUTPUT"`.' },
-  { path: '$GITHUB_STEP_SUMMARY', desc: 'Archivo de markdown que se muestra en la UI del job. NO es output de step.' },
-  { path: 'copilot/* (branch)', desc: 'Branch creada por el cloud agent para sus PRs (no puede tocar default).' },
+  { path: '.github/agents/*.agent.md', desc: 'Custom agents (repo scope). Frontmatter YAML + Markdown body.' },
+  { path: '/agents/*.agent.md (inside .github-private)', desc: 'Custom agents at ORG scope. The `.github-private` repo distributes them org-wide.' },
+  { path: '.github/copilot-instructions.md', desc: 'Repository-wide instructions consumed by Copilot across all surfaces.' },
+  { path: '.github/instructions/**/*.instructions.md', desc: 'Path-specific instructions (glob). More granular than the repo-wide file.' },
+  { path: '.github/hooks/*.json', desc: 'Hooks (preToolUse / postToolUse) to block or audit tool calls.' },
+  { path: '.github/workflows/copilot-setup-steps.yml', desc: 'Pre-provisions the Copilot cloud agent ephemeral environment.' },
+  { path: '.mcp.json', desc: 'Project/IDE-level MCP server config. Key: `mcpServers` (camelCase).' },
+  { path: 'AGENTS.md', desc: 'Agent-style instructions consumed by the Copilot CLI. COPILOT_CUSTOM_INSTRUCTIONS_DIRS extends the lookup paths.' },
+  { path: '~/.copilot/session-state/<id>/events.jsonl', desc: 'Durable session state. Enables --resume.' },
+  { path: '$GITHUB_OUTPUT', desc: 'Step outputs file. `echo "k=v" >> "$GITHUB_OUTPUT"`.' },
+  { path: '$GITHUB_STEP_SUMMARY', desc: 'Markdown file rendered in the job UI. NOT a step output.' },
+  { path: 'copilot/* (branch)', desc: 'Branch the cloud agent creates for its PRs. It cannot touch the default branch.' },
 ]
 
 const COMMANDS: CommandRef[] = [
-  { command: 'copilot --autopilot', desc: 'Modo multi-step autonomo. Continua sin pedir el siguiente paso.' },
-  { command: '--max-autopilot-continues N', desc: 'Limita cuantas continuaciones autonomas hace autopilot.' },
-  { command: '--no-ask-user', desc: 'Suprime preguntas clarificadoras pero NO es multi-step.' },
-  { command: '--yolo / --allow-all', desc: 'Permite todos los tools/paths/URLs sin pedir permiso. No toggleable.' },
-  { command: '--resume <id>', desc: 'Reanuda una sesion previa cargando estado desde ~/.copilot/session-state/.' },
-  { command: '/agent <name>', desc: 'Cambia el custom agent activo en la sesion CLI.' },
-  { command: '/delegate <name>', desc: 'Delega una sub-tarea a otro agente. Emite eventos subagent.* .' },
-  { command: '/fleet <pattern>', desc: 'Ejecuta multiples sub-agents en paralelo a partir del plan decompuesto.' },
-  { command: '/allow-all, /yolo (slash)', desc: 'Equivalentes en sesion a las flags --allow-all/--yolo. No revertibles.' },
-  { command: 'concurrency.cancel-in-progress: true', desc: 'En Actions: cancela el run en curso con la misma key cuando llega uno nuevo.' },
-  { command: 'needs: [job]', desc: 'En Actions: declara dependencia entre jobs. Habilita needs.<job>.outputs.*' },
-  { command: 'permissions: contents: read', desc: 'Minimo para clonar en copilot-setup-steps. Nunca dar write a setup.' },
+  { command: 'copilot --autopilot', desc: 'Multi-step autonomous mode. Continues without asking for the next step.' },
+  { command: '--max-autopilot-continues N', desc: 'Bounds how many autonomous continuations autopilot can make.' },
+  { command: '--no-ask-user', desc: 'Suppresses clarifying questions but is NOT multi-step.' },
+  { command: '--yolo / --allow-all', desc: 'Permits all tools / paths / URLs without prompting. Non-toggleable.' },
+  { command: '--resume <id>', desc: 'Resumes a previous named session by loading ~/.copilot/session-state/.' },
+  { command: '--continue', desc: 'Continues the most recent session.' },
+  { command: '/agent <name>', desc: 'Switches the active custom agent in a CLI session.' },
+  { command: '/delegate <name>', desc: 'Delegates a sub-task to another agent. Emits subagent.* events.' },
+  { command: '/fleet <pattern>', desc: 'Runs multiple sub-agents in parallel based on a decomposed plan.' },
+  { command: '/allow-all, /yolo (slash)', desc: 'In-session equivalents to the --allow-all / --yolo flags. Non-reversible.' },
+  { command: 'concurrency.cancel-in-progress: true', desc: 'In Actions: cancels the in-progress run with the same key when a new one arrives.' },
+  { command: 'needs: [job]', desc: 'In Actions: declares a dependency between jobs. Enables needs.<job>.outputs.*.' },
+  { command: 'permissions: contents: read', desc: 'Minimum permission to clone in copilot-setup-steps. Never grant write to setup.' },
 ]
 
 export default function CheatsheetPage() {
@@ -203,13 +209,13 @@ export default function CheatsheetPage() {
   return (
     <div className="space-y-6 fade-up">
       <header>
-        <div className="chip chip-accent mb-2">CHEATSHEET · DESPUES DE LEER ESTO YA SABES EL 50%</div>
+        <div className="chip chip-accent mb-2">CHEATSHEET · READ THIS AND YOU ALREADY KNOW ~50%</div>
         <h1 className="text-3xl font-display font-semibold text-ink">
-          Gotchas, glossary y estilo del examen
+          Gotchas, glossary, and exam style
         </h1>
         <p className="text-ink-dim mt-1 max-w-2xl">
-          Esto es lo que diferencia entre aprobar y morir. Memoriza los gotchas. Reconoce los
-          terminos. Acostumbrate al estilo de pregunta.
+          This is what separates pass from fail. Memorize the gotchas. Recognize the terms. Get
+          used to how questions are phrased.
         </p>
       </header>
 
@@ -217,8 +223,8 @@ export default function CheatsheetPage() {
         {[
           { id: 'gotchas', label: `Gotchas (${GOTCHAS.length})` },
           { id: 'glossary', label: `Glossary (${glossary.length})` },
-          { id: 'paths', label: `Paths y comandos (${PATHS.length + COMMANDS.length})` },
-          { id: 'style', label: 'Estilo de pregunta' },
+          { id: 'paths', label: `Paths & commands (${PATHS.length + COMMANDS.length})` },
+          { id: 'style', label: 'Question style' },
         ].map((t) => (
           <button
             key={t.id}
@@ -240,12 +246,10 @@ export default function CheatsheetPage() {
             <article key={i} className="card p-4 border-l-2 border-l-accent/60">
               <div className="text-[11px] font-mono text-ink-mute mb-1">GOTCHA {i + 1}</div>
               <h3 className="font-display font-semibold text-ink leading-snug">{g.title}</h3>
-              <div className="text-sm text-accent mt-2 leading-relaxed font-medium">
-                {g.detail}
-              </div>
+              <div className="text-sm text-accent mt-2 leading-relaxed font-medium">{g.detail}</div>
               <div className="text-xs text-ink-dim mt-2 leading-relaxed">
                 <span className="text-ink-mute uppercase tracking-wider text-[10px] font-semibold mr-1">
-                  porque:
+                  why:
                 </span>
                 {g.why}
               </div>
@@ -260,7 +264,7 @@ export default function CheatsheetPage() {
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Busca un termino… (MCP, autopilot, COPILOT_MCP_, firewall…)"
+            placeholder="Search a term… (MCP, autopilot, COPILOT_MCP_, firewall…)"
             className="w-full mb-4"
           />
           <div className="grid lg:grid-cols-2 gap-3">
@@ -271,7 +275,7 @@ export default function CheatsheetPage() {
               </article>
             ))}
             {glossaryFiltered.length === 0 && (
-              <div className="text-ink-mute text-sm">No hay terminos que coincidan.</div>
+              <div className="text-ink-mute text-sm">No matching terms.</div>
             )}
           </div>
         </div>
@@ -281,7 +285,7 @@ export default function CheatsheetPage() {
         <div className="grid lg:grid-cols-2 gap-6">
           <section>
             <h2 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
-              <span className="chip chip-purple">PATHS</span> Rutas que memorizar
+              <span className="chip chip-purple">PATHS</span> Paths to memorize
             </h2>
             <ul className="space-y-2">
               {PATHS.map((p) => (
@@ -294,7 +298,7 @@ export default function CheatsheetPage() {
           </section>
           <section>
             <h2 className="text-sm font-display font-semibold text-ink mb-3 flex items-center gap-2">
-              <span className="chip chip-accent">COMANDOS</span> CLI y sintaxis clave
+              <span className="chip chip-accent">COMMANDS</span> CLI flags &amp; key syntax
             </h2>
             <ul className="space-y-2">
               {COMMANDS.map((c) => (
@@ -312,19 +316,19 @@ export default function CheatsheetPage() {
         <div className="grid lg:grid-cols-2 gap-3">
           {META.question_style_notes.map((n, i) => (
             <article key={i} className="card p-4">
-              <div className="text-xs text-ink-mute font-mono mb-1">REGLA {i + 1}</div>
+              <div className="text-xs text-ink-mute font-mono mb-1">RULE {i + 1}</div>
               <p className="text-sm text-ink leading-relaxed">{n}</p>
             </article>
           ))}
           <article className="card p-4 lg:col-span-2 border-accent/40 bg-accent/5">
-            <h3 className="font-display font-semibold text-ink mb-2">Estrategia el dia del examen</h3>
+            <h3 className="font-display font-semibold text-ink mb-2">Exam-day strategy</h3>
             <ul className="text-sm text-ink-dim space-y-1.5">
-              <li>▸ Lee cada pregunta DOS veces antes de elegir.</li>
-              <li>▸ Si la pregunta dice "Select 2" o "Select 3", cuenta antes de enviar. Es error tipico.</li>
-              <li>▸ "BEST" o "MOST-APPROPRIATE" significa que varias respuestas son tecnicamente validas. Elige la que mejor sigue las practicas de GitHub.</li>
-              <li>▸ Si no sabes, marca la pregunta para review, salta, y vuelve. NO te quedes 5 min en una.</li>
-              <li>▸ En case-studies, lee el contexto completo PRIMERO, despues las preguntas. El contexto es la pista.</li>
-              <li>▸ Distractores plausibles: estan disenados para sonar bien pero violan un best-practice especifico (CODEOWNERS, scope minimo, autorizacion humana en accion irreversible…).</li>
+              <li>▸ Read every question TWICE before picking.</li>
+              <li>▸ When it says "Select 2" or "Select 3", count your selections before submitting. Common error.</li>
+              <li>▸ "BEST" or "MOST APPROPRIATE" means several answers may be technically valid. Pick the one closest to GitHub guidance.</li>
+              <li>▸ If you don't know, flag for review, skip, and come back. Do NOT burn 5 minutes on one question.</li>
+              <li>▸ On case studies, read the full context FIRST, then the questions. The context is the hint.</li>
+              <li>▸ Plausible distractors are written to sound right but violate a specific best practice (CODEOWNERS, least scope, human approval on irreversible actions, etc.).</li>
             </ul>
           </article>
         </div>

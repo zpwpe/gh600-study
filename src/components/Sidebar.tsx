@@ -14,14 +14,14 @@ interface Item {
 }
 
 const ITEMS: Item[] = [
-  { id: 'home', label: 'Inicio', hint: 'Que es el GH-600', icon: '◐' },
-  { id: 'plan', label: 'Plan 2 dias', hint: 'Cronograma intensivo', icon: '◴' },
-  { id: 'domains', label: 'Dominios', hint: '6 areas con peso', icon: '◳' },
+  { id: 'home', label: 'Home', hint: 'What the GH-600 is', icon: '◐' },
+  { id: 'plan', label: 'Cram plan', hint: 'Day-by-day schedule', icon: '◴' },
+  { id: 'domains', label: 'Domains', hint: 'The 6 weighted areas', icon: '◳' },
   { id: 'cheatsheet', label: 'Cheatsheet', hint: 'Gotchas + glossary', icon: '✦' },
-  { id: 'labs', label: 'Lab artefactos', hint: 'Lee snippets reales', icon: '▣' },
-  { id: 'practice', label: 'Practica', hint: 'Preguntas por dominio', icon: '◰' },
-  { id: 'mock', label: 'Examen Mock', hint: '50 preguntas, 120 min', icon: '◉' },
-  { id: 'progress', label: 'Mi progreso', hint: 'Que dominas', icon: '◆' },
+  { id: 'labs', label: 'Artifact lab', hint: 'Read real snippets', icon: '▣' },
+  { id: 'practice', label: 'Practice', hint: 'Questions by domain', icon: '◰' },
+  { id: 'mock', label: 'Mock exam', hint: '50 questions, 120 min', icon: '◉' },
+  { id: 'progress', label: 'My progress', hint: 'What you have nailed', icon: '◆' },
 ]
 
 function daysUntilExam(): number {
@@ -32,8 +32,8 @@ function daysUntilExam(): number {
 
 function formatExamDate(): string {
   const exam = new Date(EXAM_DATE)
-  const date = exam.toLocaleDateString('es', { weekday: 'short', day: 'numeric', month: 'short' })
-  const time = exam.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit', hour12: false })
+  const date = exam.toLocaleDateString('en', { weekday: 'short', day: 'numeric', month: 'short' })
+  const time = exam.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false })
   return EXAM_LOCATION_LABEL ? `${date} · ${time} ${EXAM_LOCATION_LABEL}` : `${date} · ${time}`
 }
 
@@ -47,7 +47,7 @@ export default function Sidebar({ route, setRoute }: SidebarProps) {
           GH
         </div>
         <div>
-          <div className="font-semibold text-ink text-base leading-tight">GH-600 Cram</div>
+          <div className="font-semibold text-ink text-base leading-tight">gh600-study</div>
           <div className="text-xs text-ink-mute leading-tight">Agentic AI Developer</div>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function Sidebar({ route, setRoute }: SidebarProps) {
         </div>
         <div className="text-xs">
           <div className="text-ink font-medium">
-            {days > 0 ? `dias para el examen` : days === 0 ? 'Examen hoy' : 'Examen pasado'}
+            {days > 0 ? 'days until exam' : days === 0 ? 'Exam day' : 'Exam past'}
           </div>
           <div className="text-ink-mute">{formatExamDate()}</div>
         </div>
@@ -97,8 +97,8 @@ export default function Sidebar({ route, setRoute }: SidebarProps) {
       </nav>
 
       <div className="text-[11px] text-ink-mute pt-3 border-t border-line">
-        <div className="mb-1">Examen: 40–60 Q · 120 min · 700/1000 para pasar</div>
-        <div>Tu progreso se guarda en este navegador.</div>
+        <div className="mb-1">Exam: 40–60 Q · 120 min · 700/1000 to pass</div>
+        <div>Your progress is saved in this browser.</div>
       </div>
     </aside>
   )

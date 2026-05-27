@@ -63,21 +63,21 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
   return (
     <div className="space-y-5 fade-up">
       <header>
-        <div className="chip chip-accent mb-2">LAB DE ARTEFACTOS · LO QUE MAS CAE</div>
+        <div className="chip chip-accent mb-2">ARTIFACT LAB · THE HIGHEST-YIELD SECTION</div>
         <h1 className="text-3xl font-display font-semibold text-ink">
-          Lee snippets reales y explica que hace cada uno
+          Read real snippets and explain what each one does
         </h1>
         <p className="text-ink-dim mt-1 max-w-2xl">
-          Los 4 LLM coincidieron en lo mismo: el examen NO te pide memorizar definiciones, te pide
-          LEER YAML/JSON/logs y decir que hace o que esta mal. Aqui tienes {LABS.length} snippets
-          tipo examen con explicacion al toque.
+          Every public source agrees: the exam does NOT ask you to memorize definitions. It hands
+          you YAML / JSON / logs and asks what they do or what is wrong. Here are {LABS.length}{' '}
+          exam-style snippets with the explanation one click away.
         </p>
       </header>
 
       <div className="card p-4 flex flex-wrap items-center gap-3">
-        <div className="text-xs text-ink-mute font-semibold uppercase tracking-wider">Dominio</div>
+        <div className="text-xs text-ink-mute font-semibold uppercase tracking-wider">Domain</div>
         <FilterPill active={domainFilter === 'all'} onClick={() => { setDomainFilter('all'); setIdx(0) }}>
-          Todos
+          All
         </FilterPill>
         {[1, 2, 3, 4, 5, 6].map((d) => (
           <FilterPill key={d} active={domainFilter === d} onClick={() => { setDomainFilter(d); setIdx(0) }}>
@@ -86,7 +86,7 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
         ))}
         <div className="flex-1" />
         <div className="text-xs text-ink-mute">
-          Completados: <span className="text-good">{doneCount}</span> / {LABS.length}
+          Reviewed: <span className="text-good">{doneCount}</span> / {LABS.length}
         </div>
       </div>
 
@@ -101,7 +101,7 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
               onClick={markDone}
               className={`btn btn-ghost text-xs ${isMarkedDone ? 'text-good' : ''}`}
             >
-              {isMarkedDone ? '✓ Repasado' : '○ Marcar repasado'}
+              {isMarkedDone ? '✓ Reviewed' : '○ Mark reviewed'}
             </button>
           </header>
 
@@ -115,23 +115,23 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
 
           <div className="mt-4 border-l-4 border-info/60 bg-info/5 p-3 rounded-r-lg">
             <div className="text-xs text-info uppercase font-semibold tracking-wider mb-1">
-              Pregunta
+              Question
             </div>
             <div className="text-ink-dim text-sm">{current.question}</div>
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
             <button onClick={toggleReveal} className="btn btn-primary">
-              {isRevealed ? 'Ocultar explicacion' : 'Ver explicacion'}
+              {isRevealed ? 'Hide explanation' : 'Show explanation'}
             </button>
             {idx > 0 && (
               <button onClick={() => { setIdx((i) => i - 1); }} className="btn btn-ghost">
-                ◂ Anterior
+                ◂ Previous
               </button>
             )}
             {idx < filteredLabs.length - 1 && (
               <button onClick={() => { setIdx((i) => i + 1); }} className="btn btn-ghost">
-                Siguiente ▸
+                Next ▸
               </button>
             )}
           </div>
@@ -140,7 +140,7 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
             <div className="mt-4 fade-up space-y-3">
               <div className="border border-good/30 bg-good/5 p-4 rounded-lg">
                 <div className="text-xs text-good uppercase font-semibold tracking-wider mb-1">
-                  Explicacion
+                  Explanation
                 </div>
                 <div className="text-ink-dim text-sm leading-relaxed">
                   {renderRich(current.answer)}
@@ -148,7 +148,7 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
               </div>
               <div className="border border-warn/30 bg-warn/5 p-4 rounded-lg">
                 <div className="text-xs text-warn uppercase font-semibold tracking-wider mb-1">
-                  Por que importa
+                  Why it matters
                 </div>
                 <div className="text-ink-dim text-sm leading-relaxed">{current.whyItMatters}</div>
               </div>
@@ -159,7 +159,7 @@ export default function LabsPage({ state, setState }: LabsPageProps) {
 
       <div className="card p-4">
         <div className="text-[11px] uppercase font-semibold tracking-wider text-ink-mute mb-3">
-          Saltar a otro lab
+          Jump to another lab
         </div>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
           {filteredLabs.map((l, i) => {

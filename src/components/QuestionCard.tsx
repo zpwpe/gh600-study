@@ -18,18 +18,18 @@ interface QuestionCardProps {
 }
 
 const DIFF_LABEL: Record<string, string> = {
-  easy: 'facil',
-  medium: 'medio',
-  hard: 'dificil',
+  easy: 'easy',
+  medium: 'medium',
+  hard: 'hard',
 }
 
 const TYPE_LABEL: Record<string, string> = {
-  multiple_choice: 'Una sola respuesta',
-  multi_select: 'Multi-respuesta — la pregunta te dice cuantas',
-  drag_drop_order: 'Ordena los pasos',
-  fill_blank: 'Llena el blanco',
-  match_pairs: 'Empareja',
-  case_study: 'Case study (revisa el contexto arriba)',
+  multiple_choice: 'Single answer',
+  multi_select: 'Multi-select (count is in the question)',
+  drag_drop_order: 'Order the steps',
+  fill_blank: 'Fill in the blank',
+  match_pairs: 'Match pairs',
+  case_study: 'Case study (check context above)',
 }
 
 export default function QuestionCard({
@@ -116,9 +116,9 @@ export default function QuestionCard({
           <button
             onClick={() => onFlag(question.id)}
             className={`btn btn-ghost text-xs ${flagged ? 'text-accent' : ''}`}
-            title="Marcar para revisar despues"
+            title="Flag to review later"
           >
-            {flagged ? '⚑ Marcada' : '⚐ Marcar'}
+            {flagged ? '⚑ Flagged' : '⚐ Flag'}
           </button>
         )}
       </header>
@@ -186,7 +186,7 @@ export default function QuestionCard({
         <div>
           <input
             type="text"
-            placeholder="Escribe la respuesta…"
+            placeholder="Type your answer…"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             disabled={revealed && mode === 'mock'}
@@ -194,7 +194,7 @@ export default function QuestionCard({
           />
           {revealed && (
             <div className="mt-2 text-sm">
-              <span className="text-ink-mute">Respuesta correcta: </span>
+              <span className="text-ink-mute">Correct answer: </span>
               <code className="text-good">{question.correct}</code>
             </div>
           )}
@@ -214,27 +214,27 @@ export default function QuestionCard({
       <footer className="mt-5 flex flex-wrap items-center gap-2">
         {!revealed && mode === 'study' && (
           <button onClick={submit} className="btn btn-primary" disabled={!answer}>
-            Revisar respuesta
+            Check answer
           </button>
         )}
         {!revealed && mode === 'mock' && (
           <button onClick={submit} className="btn" disabled={!answer}>
-            Guardar y continuar
+            Save and continue
           </button>
         )}
         {revealed && mode === 'study' && (
           <div className={`chip ${correct ? 'chip-good' : 'chip-bad'}`}>
-            {correct ? '✓ Correcto' : '✕ Incorrecto'}
+            {correct ? '✓ Correct' : '✕ Incorrect'}
           </div>
         )}
         {canPrev && onPrev && (
           <button onClick={onPrev} className="btn btn-ghost">
-            ◂ Anterior
+            ◂ Previous
           </button>
         )}
         {onNext && (
           <button onClick={onNext} className="btn btn-ghost">
-            Siguiente ▸
+            Next ▸
           </button>
         )}
       </footer>
@@ -242,7 +242,7 @@ export default function QuestionCard({
       {revealed && question.explanation && (
         <div className="mt-4 border-t border-line pt-4">
           <div className="text-xs uppercase tracking-wider text-ink-mute font-semibold mb-1">
-            Explicacion
+            Explanation
           </div>
           <p className="text-sm text-ink-dim leading-relaxed whitespace-pre-line">
             {question.explanation}
@@ -320,7 +320,7 @@ function DragDropOrder({
       })}
       {revealed && correct && (
         <li className="text-xs text-ink-mute pt-2">
-          <span className="font-semibold">Orden correcto:</span>{' '}
+          <span className="font-semibold">Correct order:</span>{' '}
           <span className="font-mono">{correct}</span>
         </li>
       )}
@@ -341,8 +341,7 @@ function MatchPairs({
     <div>
       {!revealed && (
         <p className="text-xs text-ink-mute mb-3">
-          Estas son pruebas de emparejamiento. Lee cada izquierda y piensa la respuesta antes de
-          revelar.
+          Match-pairs item. Read each left-hand side and think the answer before revealing.
         </p>
       )}
       <div className="grid lg:grid-cols-2 gap-2">
@@ -362,10 +361,10 @@ function MatchPairs({
       {!revealed && (
         <div className="mt-3 flex gap-2">
           <button onClick={() => onSelfMark(true)} className="btn btn-primary text-xs">
-            Lo acerte
+            I got it
           </button>
           <button onClick={() => onSelfMark(false)} className="btn btn-danger text-xs">
-            Fallé
+            I missed
           </button>
         </div>
       )}

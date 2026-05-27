@@ -38,7 +38,7 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
   })
 
   const reset = () => {
-    if (!confirm('Borrar TODO tu progreso? Esto no se puede deshacer.')) return
+    if (!confirm('Erase ALL your progress? This cannot be undone.')) return
     resetState()
     setState({
       planChecks: {},
@@ -52,34 +52,32 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
   return (
     <div className="space-y-6 fade-up">
       <header>
-        <div className="chip chip-purple mb-2">MI PROGRESO</div>
-        <h1 className="text-3xl font-display font-semibold text-ink">
-          Que dominas y que falta
-        </h1>
+        <div className="chip chip-purple mb-2">MY PROGRESS</div>
+        <h1 className="text-3xl font-display font-semibold text-ink">What you have nailed and what's left</h1>
         <p className="text-ink-dim mt-1 max-w-2xl">
-          Aqui te muestro donde estas fuerte y donde flojo. Foco en lo flojo.
+          Where you are strong and where you are weak. Drill the weak spots.
         </p>
       </header>
 
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <KpiCard kpi={`${seen}/${totalQ}`} label="Preguntas vistas" />
-        <KpiCard kpi={`${correctLast}`} label="Correctas (ultima vez)" />
-        <KpiCard kpi={`${flaggedCount}`} label="Marcadas para repasar" />
+        <KpiCard kpi={`${seen}/${totalQ}`} label="Questions seen" />
+        <KpiCard kpi={`${correctLast}`} label="Correct (last attempt)" />
+        <KpiCard kpi={`${flaggedCount}`} label="Flagged to review" />
         <KpiCard
           kpi={lastMock?.score !== undefined ? `${lastMock.score}` : '—'}
-          label="Score mock mas reciente"
+          label="Latest mock score"
           subtle={
             lastMock?.score !== undefined
               ? lastMock.score >= META.passing_score
-                ? 'PASARIAS'
-                : 'TODAVIA NO'
-              : 'aun no hiciste mock'
+                ? 'WOULD PASS'
+                : 'NOT YET'
+              : 'no mock taken yet'
           }
         />
       </section>
 
       <section className="card p-5">
-        <h2 className="font-display font-semibold text-ink mb-3">Rendimiento por dominio</h2>
+        <h2 className="font-display font-semibold text-ink mb-3">Performance by domain</h2>
         <div className="space-y-3">
           {byDomain.map((b) => {
             const pct = b.pct
@@ -92,7 +90,7 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
                     <span className="text-ink-mute">({b.domain.weight_pct})</span>
                   </span>
                   <span>
-                    {b.correct} / {b.seen} vistas · {b.total} totales · {pct}%
+                    {b.correct} / {b.seen} seen · {b.total} total · {pct}%
                   </span>
                 </div>
                 <div className="h-2 bg-bg-3 rounded-full overflow-hidden">
@@ -107,11 +105,11 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
       {wrongQuestions.length > 0 && (
         <section className="card p-5">
           <h2 className="font-display font-semibold text-ink mb-3">
-            Tus errores recientes ({wrongQuestions.length})
+            Recent misses ({wrongQuestions.length})
           </h2>
           <p className="text-sm text-ink-dim mb-3">
-            Estas son las preguntas que fallaste en tu ultimo intento. Ve a la pestana <em>Practica</em>
-            con el modo "Falladas" para reforzarlas.
+            These are the questions you missed on your latest attempt. Open <em>Practice</em> with
+            the "Missed" mode to drill them.
           </p>
           <ul className="space-y-2 text-sm">
             {wrongQuestions.slice(0, 20).map((q) => (
@@ -124,7 +122,7 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
             ))}
             {wrongQuestions.length > 20 && (
               <li className="text-xs text-ink-mute">
-                ...y {wrongQuestions.length - 20} mas. Ve a <em>Practica</em> con modo Falladas.
+                …and {wrongQuestions.length - 20} more. Open <em>Practice</em> with the "Missed" mode.
               </li>
             )}
           </ul>
@@ -133,10 +131,10 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
 
       <section className="card p-5">
         <h2 className="font-display font-semibold text-ink mb-3">
-          Historial de mocks ({state.mockRuns.length})
+          Mock history ({state.mockRuns.length})
         </h2>
         {state.mockRuns.length === 0 ? (
-          <p className="text-sm text-ink-dim">Aun no completaste ningun mock exam.</p>
+          <p className="text-sm text-ink-dim">No completed mock exams yet.</p>
         ) : (
           <ul className="space-y-2 text-sm">
             {state.mockRuns
@@ -164,7 +162,7 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
                       {r.score} / 1000
                     </div>
                     <div className="chip">
-                      {(r.score ?? 0) >= META.passing_score ? 'PASARIA' : 'NO PASARIA'}
+                      {(r.score ?? 0) >= META.passing_score ? 'WOULD PASS' : 'WOULD NOT PASS'}
                     </div>
                   </div>
                 </li>
@@ -174,12 +172,12 @@ export default function ProgressPage({ state, setState }: ProgressPageProps) {
       </section>
 
       <section className="card p-5 border-bad/30">
-        <h2 className="font-display font-semibold text-ink mb-1">Reset progreso</h2>
+        <h2 className="font-display font-semibold text-ink mb-1">Reset progress</h2>
         <p className="text-xs text-ink-mute mb-3">
-          Borra todas tus respuestas, marcas y mocks. No se puede deshacer.
+          Erases all your answers, flags, and mock history. Cannot be undone.
         </p>
         <button onClick={reset} className="btn btn-danger text-xs">
-          Borrar todo mi progreso
+          Erase all my progress
         </button>
       </section>
     </div>

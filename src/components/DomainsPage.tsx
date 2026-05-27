@@ -13,13 +13,13 @@ export default function DomainsPage() {
   return (
     <div className="space-y-6 fade-up">
       <header>
-        <div className="chip chip-purple mb-2">DOMINIOS DEL EXAMEN · CHEATSHEETS</div>
+        <div className="chip chip-purple mb-2">EXAM DOMAINS · CHEATSHEETS</div>
         <h1 className="text-3xl font-display font-semibold text-ink">
-          Los 6 dominios: que cae en cada uno
+          The 6 domains: what comes up in each
         </h1>
         <p className="text-ink-dim mt-1 max-w-2xl">
-          Cada dominio tiene conceptos clave (lo que MAS cae), terminologia (vocabulario que debes
-          dominar) y pitfalls (las trampas tipicas del examen).
+          Each domain has key concepts (what shows up MOST), terminology (vocabulary you must own),
+          and pitfalls (the classic exam traps).
         </p>
       </header>
 
@@ -44,16 +44,16 @@ export default function DomainsPage() {
       <section className="card p-6 border-l-4" style={{ borderLeftColor: `var(--color-${accent}-500, var(--color-accent))` }}>
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-2xl font-display font-semibold text-ink">
-            Dominio {dom.domain_id}: {dom.title}
+            Domain {dom.domain_id}: {dom.title}
           </h2>
           <div className="flex gap-2">
             <div className="chip chip-accent">{dom.weight_pct}</div>
-            <div className="chip">{totalQ} preguntas</div>
+            <div className="chip">{totalQ} questions</div>
           </div>
         </div>
 
         <p className="text-ink-dim text-sm">
-          {dom.objectives.length} objetivos · cada uno con sus conceptos clave, vocabulario y trampas.
+          {dom.objectives.length} objectives — each with its key concepts, vocabulary, and traps.
         </p>
 
         {dom.objectives.map((o) => (
@@ -65,7 +65,7 @@ export default function DomainsPage() {
 
             <div className="grid lg:grid-cols-2 gap-4">
               {o.key_concepts && (
-                <Block title="Conceptos clave (lo que mas cae)" tone="good">
+                <Block title="Key concepts (what shows up most)" tone="good">
                   <ul className="space-y-1.5">
                     {o.key_concepts.map((c, i) => (
                       <li key={i} className="text-sm text-ink-dim leading-snug flex gap-2">
@@ -78,7 +78,7 @@ export default function DomainsPage() {
               )}
 
               {o.key_terminology && (
-                <Block title="Vocabulario que DEBES saber" tone="info">
+                <Block title="Vocabulary you MUST own" tone="info">
                   <div className="flex flex-wrap gap-1.5">
                     {o.key_terminology.map((t, i) => (
                       <code
@@ -93,7 +93,7 @@ export default function DomainsPage() {
               )}
 
               {o.common_pitfalls && (
-                <Block title="Pitfalls (trampas tipicas del examen)" tone="bad">
+                <Block title="Pitfalls (classic exam traps)" tone="bad">
                   <ul className="space-y-1.5">
                     {o.common_pitfalls.map((c, i) => (
                       <li key={i} className="text-sm text-ink-dim leading-snug flex gap-2">
@@ -106,7 +106,7 @@ export default function DomainsPage() {
               )}
 
               {o.github_features_tested && (
-                <Block title="Features de GitHub que evaluan" tone="warn">
+                <Block title="GitHub features tested" tone="warn">
                   <div className="flex flex-wrap gap-1.5">
                     {o.github_features_tested.map((t, i) => (
                       <code
@@ -124,7 +124,7 @@ export default function DomainsPage() {
             {o.subtopics && (
               <details className="mt-4 group">
                 <summary className="cursor-pointer text-xs text-ink-mute hover:text-ink-dim">
-                  ▸ Lo que la guia oficial pide en este objetivo
+                  ▸ What the official study guide asks for in this objective
                 </summary>
                 <ul className="mt-2 space-y-1 pl-4 text-xs text-ink-dim list-disc list-inside">
                   {o.subtopics.map((s, i) => (

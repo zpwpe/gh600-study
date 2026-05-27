@@ -13,4 +13,4 @@ export const EXAM_LOCATION_LABEL = ''
 
 // Long label shown on the home page and plan headers.
 // Use whatever fits your booking. Leave empty to hide.
-export const EXAM_HEADER_LABEL = 'TU EXAMEN PROGRAMADO'
+export const EXAM_HEADER_LABEL = 'YOUR SCHEDULED EXAM'

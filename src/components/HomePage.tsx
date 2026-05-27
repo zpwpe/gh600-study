@@ -26,44 +26,43 @@ export default function HomePage({ onGo }: HomePageProps) {
           {META.exam_code}: {META.exam_title}
         </h1>
         <p className="mt-3 text-ink-dim max-w-3xl leading-relaxed">
-          Tu objetivo: sacar el maximo score en el {META.exam_code} ({META.credential}). Esta app
-          es tu mochila de cram para los proximos 2 dias. Lenguaje simple, sin floro, con todo lo
-          que sale en el examen segun la guia oficial de Microsoft, GitHub Docs, y los que ya lo
-          dieron.
+          Your goal: maximize your score on the {META.exam_code} ({META.credential}). This app is
+          your cram pack for the days before the exam. Plain language, no fluff. Built from the
+          official Microsoft study guide, GitHub Docs, and the people who already took the beta.
         </p>
       </section>
 
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard kpi={`${META.duration_minutes} min`} label="Duracion" hint="Cronometro real" />
-        <StatCard kpi="40–60" label="Preguntas" hint="Scenario-based" />
-        <StatCard kpi="700" label="Score minimo" hint="/1000 para aprobar" />
-        <StatCard kpi="6" label="Dominios" hint="Ver pesos abajo" />
+        <StatCard kpi={`${META.duration_minutes} min`} label="Duration" hint="Real clock" />
+        <StatCard kpi="40–60" label="Questions" hint="Scenario-based" />
+        <StatCard kpi="700" label="Pass score" hint="/ 1000 to pass" />
+        <StatCard kpi="6" label="Domains" hint="See weights below" />
       </section>
 
       <section className="card p-6">
         <h2 className="text-xl font-display font-semibold text-ink mb-1">
-          Que es el GH-600 en una linea
+          What the GH-600 is, in one line
         </h2>
         <p className="text-ink-dim leading-relaxed">
-          Es el primer certificado de GitHub para gente que <strong className="text-ink">opera,
-          supervisa y gobierna agentes de IA</strong> (tipo Copilot cloud agent + CLI + custom
-          agents) dentro del ciclo de vida de software, usando GitHub como sistema de control. No
-          es un examen de codear; es un examen de <em>como configurar, evaluar y poner barandas</em>
-          a agentes que escriben codigo por ti.
+          It's GitHub's first cert for people who <strong className="text-ink">operate, supervise,
+          and govern AI agents</strong> (Copilot cloud agent, Copilot CLI, custom agents) inside the
+          software development lifecycle, with GitHub as the control plane. It's not a coding exam;
+          it's an exam about <em>how you configure, evaluate, and put guardrails on</em> agents
+          that write code for you.
         </p>
         <div className="mt-4 grid lg:grid-cols-2 gap-3 text-sm">
-          <Bullet good>Vas a ver preguntas de YAML de custom-agents, MCP servers, allowlists del firewall, CODEOWNERS, environments con required reviewers.</Bullet>
-          <Bullet good>Casi todo es <strong>scenario-based</strong>: te dan un contexto, te piden la MEJOR opcion, no la unica posible.</Bullet>
-          <Bullet bad>Casi NO vas a ver: trivia memoristica de Copilot Chat, comandos basicos de git, sintaxis de actions sin agentes.</Bullet>
-          <Bullet bad>Trampa clasica: confundir <code className="text-accent">--no-ask-user</code> con <code className="text-accent">--autopilot</code>, o asumir que el firewall cubre MCP servers (no lo hace).</Bullet>
+          <Bullet good>You will see questions about custom-agent YAML, MCP servers, firewall allowlists, CODEOWNERS, environments with required reviewers.</Bullet>
+          <Bullet good>Almost everything is <strong>scenario-based</strong>: you get context, then have to pick the BEST option, not the only one.</Bullet>
+          <Bullet bad>What you will NOT see: rote trivia about Copilot Chat, basic git commands, or non-agentic Actions syntax.</Bullet>
+          <Bullet bad>Classic trap: confusing <code className="text-accent">--no-ask-user</code> with <code className="text-accent">--autopilot</code>, or assuming the firewall covers MCP servers (it does not).</Bullet>
         </div>
       </section>
 
       <section>
         <div className="flex items-end justify-between mb-3">
-          <h2 className="text-xl font-display font-semibold text-ink">Los 6 dominios y su peso</h2>
+          <h2 className="text-xl font-display font-semibold text-ink">The 6 domains and their weights</h2>
           <button onClick={() => onGo('domains')} className="btn btn-ghost text-xs">
-            Ver cheatsheets ▸
+            See cheatsheets ▸
           </button>
         </div>
         <div className="grid lg:grid-cols-2 gap-3">
@@ -79,11 +78,11 @@ export default function HomePage({ onGo }: HomePageProps) {
               </div>
               <div className="font-display text-ink font-medium leading-snug">{d.title}</div>
               <div className="text-xs text-ink-mute mt-1">
-                {d.objectives.length} objetivos · {d.objectives.reduce(
+                {d.objectives.length} objectives · {d.objectives.reduce(
                   (a, o) => a + (o.questions?.length ?? 0),
                   0,
                 )}{' '}
-                preguntas tipo examen
+                exam-style questions
               </div>
             </button>
           ))}
@@ -92,63 +91,68 @@ export default function HomePage({ onGo }: HomePageProps) {
 
       <section className="grid lg:grid-cols-3 gap-3">
         <ActionCard
-          title="Empieza por el plan"
-          desc="Cronograma intensivo 2 dias. Marca cada bloque cuando lo termines."
-          cta="Ver plan ▸"
+          title="Start with the plan"
+          desc="3-day intensive schedule. Check each block as you finish it."
+          cta="Open plan ▸"
           onClick={() => onGo('plan')}
         />
         <ActionCard
-          title="Lee el cheatsheet"
-          desc="Glossary + los 15 gotchas que SIEMPRE caen. Memorizalos."
-          cta="Ver cheatsheet ▸"
+          title="Read the cheatsheet"
+          desc="Glossary, paths, CLI commands, and the gotchas that always show up. Memorize them."
+          cta="Open cheatsheet ▸"
           onClick={() => onGo('cheatsheet')}
         />
         <ActionCard
-          title="Drilling de preguntas"
-          desc="70+ preguntas reales con explicacion. Filtra por dominio para reforzar lo flojo."
-          cta="Practicar ▸"
+          title="Drill questions"
+          desc="94 scenario questions with explanations. Filter by domain to reinforce weak spots."
+          cta="Open practice ▸"
           onClick={() => onGo('practice')}
         />
       </section>
 
       <section className="grid lg:grid-cols-2 gap-3">
         <article className="card p-5">
-          <div className="chip chip-warn mb-2">LOGISTICA DEL EXAMEN</div>
+          <div className="chip chip-warn mb-2">EXAM LOGISTICS</div>
           <h2 className="text-lg font-display font-semibold text-ink mb-3">
-            Cosas no obvias que importan el dia del examen
+            Non-obvious things that matter on exam day
           </h2>
           <ul className="space-y-2 text-sm text-ink-dim leading-relaxed">
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">NO tienes acceso a Microsoft Learn</strong> durante el examen. Llega con paths, comandos y diferencias de keys ya memorizadas.</span></li>
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">Examen solo en INGLES.</strong> Si no es tu primer idioma, Microsoft permite pedir <strong>+30 min extra</strong> al agendar. Para ti: 120+30 = 150 min.</span></li>
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">Beta hasta 31 may 2026</strong>, GA en julio. Codigo de 80% off para los primeros 100: <code className="text-accent mono">GH600Flanders</code>.</span></li>
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>NO disponible en Turkey, Pakistan, India, China. Resultados beta tardan <strong>8-12 semanas</strong>.</span></li>
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>Sandbox para conocer la UI antes: <code className="text-accent mono text-[11px]">ghcertdemo.starttest.com</code></span></li>
-            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>NO existe Practice Assessment oficial. Por eso esta app y el mock de jtur671 son lo unico para drill.</span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">No Microsoft Learn during the exam.</strong> Walk in with paths, commands, and key differences already in your head.</span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">Exam is English-only.</strong> If English is not your first language, Microsoft lets you request <strong>+30 minutes</strong> at booking time. That's 120+30 = 150 min total.</span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span><strong className="text-ink">Beta runs through May 31, 2026</strong>, GA in July 2026. 80% off code for the first 100 candidates: <code className="text-accent mono">GH600Flanders</code>.</span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>Not available in Turkey, Pakistan, India, or China. Beta results take <strong>8–12 weeks</strong>.</span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>Sandbox to get familiar with the UI: <code className="text-accent mono text-[11px]">ghcertdemo.starttest.com</code></span></li>
+            <li className="flex gap-2"><span className="text-warn mt-0.5">▸</span><span>There is no official Practice Assessment. This app and the jtur671 mock are the only drill banks you get.</span></li>
           </ul>
         </article>
 
         <article className="card p-5">
-          <div className="chip chip-purple mb-2">TESTIMONIOS BETA · MAY 2026</div>
+          <div className="chip chip-purple mb-2">BETA TESTIMONIALS · MAY 2026</div>
           <h2 className="text-lg font-display font-semibold text-ink mb-3">
-            Lo que dicen los que YA lo dieron
+            What people who already took it say
           </h2>
           <div className="space-y-4">
             <div className="border-l-2 border-accent/60 pl-3">
-              <div className="text-xs text-ink-mute font-mono mb-1">Reasonable_East_3023 · autor de la guia Gist</div>
+              <div className="text-xs text-ink-mute font-mono mb-1">Reasonable_East_3023 · author of the public Gist</div>
               <p className="text-sm text-ink-dim leading-relaxed italic">
-                "This exam kicks ass. Mucho mas duro que GH-300. Microsoft Learn es solo un mapa de alto nivel. El examen es muy practico: YAML, JSON de MCP, logs, workflows con needs y artifacts, hooks, CLI de Copilot. Trata la guia como workbook."
+                "This exam kicks ass. Way harder than GH-300. Microsoft Learn is only a high-level
+                map. The exam is very practical: YAML, MCP JSON, session logs, workflows with needs
+                and artifacts, hooks, Copilot CLI. Treat the guide as a workbook."
               </p>
             </div>
             <div className="border-l-2 border-accent-2/60 pl-3">
-              <div className="text-xs text-ink-mute font-mono mb-1">Luciano_DZ · tomo el mismo dia que el autor</div>
+              <div className="text-xs text-ink-mute font-mono mb-1">Luciano_DZ · took it the same day as the author</div>
               <p className="text-sm text-ink-dim leading-relaxed italic">
-                "56 preguntas + 2 case studies. Muchisimo enfasis en GitHub Actions workflows para agentes y Copilot CLI. Domina los comandos basicos del CLI y como escribir archivos de agentes en .github/. No hay acceso a Microsoft Learn durante el examen."
+                "56 questions plus 2 case studies. Heavy emphasis on GitHub Actions workflows for
+                agents and on Copilot CLI. Master the basic CLI commands and how to author agent
+                files under .github/. No Microsoft Learn access during the exam."
               </p>
             </div>
             <div className="border-l-2 border-info/60 pl-3">
-              <div className="text-xs text-ink-mute font-mono mb-1">Otro beta · formato mezclado</div>
+              <div className="text-xs text-ink-mute font-mono mb-1">Another beta taker · on the question format</div>
               <p className="text-sm text-ink-dim leading-relaxed italic">
-                "No todo es multiple choice. Hay drag-and-drop y fill-blanks con opciones predeterminadas. Lee con calma; te muestran snippets reales."
+                "Not everything is multiple choice. There are drag-and-drop items and fill-in-the-blank
+                with predefined choices. Read carefully; they show you real snippets."
               </p>
             </div>
           </div>
@@ -157,25 +161,26 @@ export default function HomePage({ onGo }: HomePageProps) {
 
       <section className="card p-6 border-accent/30">
         <h2 className="text-lg font-display font-semibold text-ink mb-2">
-          Recomendacion para 2 dias (intensivo)
+          Recommended approach if you have ~3 days
         </h2>
         <ol className="space-y-2 text-sm text-ink-dim leading-relaxed list-decimal list-inside">
           <li>
-            <strong className="text-ink">Hoy (Mar):</strong> lee el cheatsheet completo + dominios
-            1, 2 y 6 (los mas pesados para guardrails). Practica 30 preguntas filtrando esos
-            dominios.
+            <strong className="text-ink">Day 1:</strong> Read the cheatsheet end to end, then focus
+            on Domain 2 (the heaviest, 20–25%) plus Domain 6 (guardrails, 10–15%). Drill ~30
+            questions filtered to those domains.
           </li>
           <li>
-            <strong className="text-ink">Manana (Mie):</strong> dominios 3, 4 y 5. Practica las 70+
-            preguntas en orden. Repasa lo que fallaste.
+            <strong className="text-ink">Day 2:</strong> Domains 5, 1, 4, 3. Walk through the 12
+            artifact labs back to back. Run a timed Mock Exam in the evening. Review every miss.
           </li>
           <li>
-            <strong className="text-ink">Vie en la manana:</strong> 1 mock exam completo (50 Q, 120
-            min). Revisa los errores. Llega al centro 30 min antes con DNI.
+            <strong className="text-ink">Day 3 morning:</strong> One more Mock Exam (questions
+            rotate). Final pass through gotchas + paths + commands. Leave 30 min buffer to get to
+            the test center.
           </li>
         </ol>
         <div className="mt-3 text-xs text-ink-mute">
-          Sigue el plan paso a paso en la pestana <em>Plan 2 dias</em>.
+          Block-by-block schedule lives in the <em>Cram plan</em> tab.
         </div>
       </section>
     </div>
