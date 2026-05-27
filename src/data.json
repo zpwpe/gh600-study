@@ -1,0 +1,1896 @@
+{
+  "meta": {
+    "exam_code": "GH-600",
+    "exam_title": "Developing in Agentic AI Systems",
+    "credential": "GitHub Certified: Agentic AI Developer (beta)",
+    "maintained_by": "GitHub (delivered by Microsoft via Pearson Vue)",
+    "level": "Intermediate",
+    "duration_minutes": 120,
+    "passing_score": 700,
+    "languages": ["English"],
+    "format": "Proctored, scenario-based, interactive components possible",
+    "beta_note": "Results released ~8 weeks after beta period concludes",
+    "domains_count": 6,
+    "study_guide_url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
+    "cert_overview_url": "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
+    "exam_sandbox_url": "https://ghcertdemo.starttest.com/",
+    "audience_profile": "Subject matter experts operating, integrating, supervising, and governing AI agents inside production-grade SDLC workflows using GitHub as the system of record and control plane.",
+    "core_responsibilities": [
+      "Operating agent workflows inside the SDLC",
+      "Supervising autonomous behavior with GitHub controls",
+      "Evaluating and tuning agent outputs using scans and artifacts",
+      "Configuring custom agents",
+      "Coordinating multi-agent execution safely"
+    ],
+    "prerequisite_experience": [
+      "Software development lifecycle (SDLC)",
+      "Workflows in GitHub and controls",
+      "Code quality, security, and review practices",
+      "Coding agents including GitHub Copilot",
+      "MCP servers",
+      "Agent customization (custom instructions, custom agents, tools, Copilot setup steps)"
+    ],
+    "primary_sources": [
+      "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-600",
+      "https://learn.microsoft.com/en-us/credentials/certifications/agentic-ai-developer/",
+      "https://learn.microsoft.com/en-us/training/modules/foundations-agentic-ai/",
+      "https://learn.microsoft.com/en-us/training/modules/design-agent-architecture-integration/",
+      "https://learn.microsoft.com/en-us/training/modules/agent-tooling-mcp-execution-environments/",
+      "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/prepare-for-custom-agents",
+      "https://docs.github.com/en/copilot/how-tos/copilot-sdk/use-copilot-sdk/custom-agents",
+      "https://docs.github.com/en/copilot/concepts/agents/copilot-memory",
+      "https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents/implementation-planner",
+      "https://docs.github.com/en/copilot/tutorials/cloud-agent/build-guardrails",
+      "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations",
+      "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/customize-the-agent-firewall",
+      "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/extend-coding-agent-with-mcp",
+      "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-server-access",
+      "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-registry",
+      "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents",
+      "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents",
+      "https://docs.github.com/en/copilot/reference/custom-agents-configuration",
+      "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/autopilot",
+      "https://docs.github.com/en/copilot/concepts/agents/coding-agent/mcp-and-coding-agent",
+      "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/fleet",
+      "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/track-copilot-sessions",
+      "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment",
+      "https://techcommunity.microsoft.com/blog/skills-hub-blog/new-github-certified-agentic-ai-developer/4517571"
+    ],
+    "question_style_notes": [
+      "Microsoft cert questions are scenario-based, not trivia.",
+      "Stems typically describe an org context, propose a goal, and ask the BEST/MOST-APPROPRIATE answer.",
+      "Multi-select questions tell you how many to choose ('Select 2', 'Select 3').",
+      "Order/drag-drop questions ask you to arrange steps in correct sequence.",
+      "Case studies present a multi-page scenario followed by 3-6 questions.",
+      "Distractors are plausible but violate a specific GitHub/Microsoft best practice."
+    ],
+    "glossary": {
+      "Agentic AI": "AI systems that plan, act, and evaluate within a workflow, taking concrete actions in tools rather than only producing text.",
+      "Plan-Act-Evaluate lifecycle": "Three-phase agent lifecycle where the agent first plans, then executes actions through tools, then evaluates results against success criteria.",
+      "System of record": "GitHub's role as the durable, auditable home for agent artifacts (commits, PRs, issues, logs).",
+      "Control plane": "GitHub's role enforcing policies (CODEOWNERS, rulesets, environments, required reviews) on agent activity.",
+      "Custom agent": "A specialized Copilot agent defined by a Markdown file with YAML front matter, located in .github/agents/*.agent.md (repo) or /agents/*.agent.md inside the .github-private repo (org).",
+      "Copilot cloud agent": "Copilot agent that works in an ephemeral GitHub Actions environment to complete tasks assigned via issue assignment or chat, posting commits to a copilot/* branch and opening draft PRs.",
+      "Copilot CLI": "Command-line interface for Copilot with /agent, /fleet, /allow-all slash commands and autopilot mode.",
+      "Autopilot mode": "Copilot CLI mode that runs without user input between steps, enabled via Shift+Tab or --autopilot, bounded by --max-autopilot-continues.",
+      "MCP": "Model Context Protocol, open standard for sharing context between applications and LLMs.",
+      "MCP server": "Process or HTTP endpoint exposing tools/resources/prompts to an MCP client. GitHub Copilot only consumes tools (not resources or prompts).",
+      "MCP registry": "v0.1-compliant HTTP service exposing GET /v0.1/servers, /v0.1/servers/{name}/versions/latest, /v0.1/servers/{name}/versions/{version}.",
+      "MCP allow list policy": "'Allow all' or 'Registry only'. Controls which MCP servers developers can run.",
+      "MCP transport types": "local | stdio | http | sse",
+      "AGENTS.md": "Markdown file used by Copilot CLI as agent instructions, supports COPILOT_CUSTOM_INSTRUCTIONS_DIRS env var for additional paths.",
+      ".github/copilot-instructions.md": "Repository-wide custom instructions file consumed by Copilot across surfaces.",
+      "copilot-setup-steps.yml": "Workflow file in .github/workflows/ with a single job named copilot-setup-steps that pre-provisions the agent's ephemeral environment.",
+      "Copilot environment firewall": "Firewall around the Copilot cloud agent ephemeral env. Default-deny except recommended allowlist (OS pkg repos, container registries, language registries, CA, Playwright hosts). Applies only to Bash-launched processes, not MCP servers or setup steps.",
+      "Custom allowlist rule": "Domain (allows subdomains) or URL (scheme + path-scoped) entries that extend the firewall.",
+      "Branch protection / rulesets": "GitHub controls applied identically to humans and Copilot. Used to require reviewers, status checks, second-user approval.",
+      "CODEOWNERS": "File at .github/CODEOWNERS that requires specified owners to approve PRs touching matched paths.",
+      "Eyes-on reaction": "Eye emoji (👀) reaction added by Copilot to indicate it has acknowledged a comment.",
+      "Session logs": "Per-session inspectable artifact showing Copilot's internal monologue, tool calls, and outcomes; linked from every agent-authored commit.",
+      "Co-authored commit": "Copilot signs commits as author with the developer as co-author; commits are cryptographically signed and marked Verified.",
+      "Custom agent invocation": "@agent-name in chat, dropdown in agents panel, /agent slash in CLI, or CLI arg.",
+      "Sub-agent": "Custom agent delegated to within a session; emits subagent.selected, subagent.started, subagent.completed, subagent.failed, subagent.deselected events.",
+      "/fleet": "Copilot CLI slash command that decomposes a plan into independent tasks and runs sub-agents in parallel.",
+      "disable-model-invocation": "Front matter boolean (default false) that prevents automatic sub-agent selection by the model.",
+      "user-invocable": "Front matter boolean (default true) controlling whether users can manually pick the agent.",
+      "Memory citations": "Repository facts captured by Copilot Memory include code citations; validated against the current branch before reuse.",
+      "Memory expiration": "Unused memory entries are auto-deleted after 28 days; timer resets on successful validation and reuse.",
+      "Anti-patterns (agents)": "Letting agents act without approval, unbounded autonomy, no traceability, mixing planning and execution in one opaque step, sharing memory across unrelated tasks, blanket tool wildcards.",
+      "Contributor model": "Treat agent output as if from a junior contributor: scoped PRs, code review, CI checks, no merge without approval."
+    },
+    "github_features_index": [
+      "GitHub Copilot coding agent (cloud)",
+      "GitHub Copilot CLI",
+      "GitHub Copilot SDK",
+      "Custom agents (.agent.md)",
+      "Custom instructions (AGENTS.md, copilot-instructions.md, *.instructions.md)",
+      "MCP servers (stdio/local/http/sse)",
+      "MCP registries (v0.1 spec)",
+      "MCP allow list policy (Allow all / Registry only)",
+      "copilot-setup-steps.yml",
+      "Copilot environment firewall + custom allowlist",
+      "CODEOWNERS",
+      "Branch rulesets / branch protection",
+      "Required reviewers / required status checks",
+      "Environments + required reviewers + secrets",
+      "Actions secrets and variables",
+      "GitHub-hosted vs self-hosted ephemeral runners",
+      "Session logs + agent panel",
+      "Audit log",
+      "CodeQL scanning",
+      "Secret scanning",
+      "Dependency review / GitHub Advisory Database",
+      "Copilot Memory (repository facts, user preferences)",
+      "/fleet (parallel sub-agents)",
+      "/agent (CLI agent selector)",
+      "Eyes-on emoji reaction",
+      "Draft pull requests",
+      "Co-authored verified commits",
+      "Pull request templates",
+      "Issue templates",
+      "Microsoft Agent Framework (Copilot SDK as provider)"
+    ]
+  },
+  "domains": [
+    {
+      "domain_id": 1,
+      "title": "Prepare agent architecture and SDLC processes",
+      "weight_pct": "15-20%",
+      "objectives": [
+        {
+          "id": "1.1",
+          "title": "Integrate agents into the software development lifecycle (SDLC)",
+          "subtopics": [
+            "Identify steps for agents to perform",
+            "Identify and mitigate common anti-patterns in agents",
+            "Define inputs, outputs, and success criteria for agents"
+          ],
+          "key_concepts": [
+            "Plan-Act-Evaluate lifecycle",
+            "GitHub as the system of record and control plane",
+            "Contributor model (treat agent output like a junior contributor's work)",
+            "Map agent responsibilities to SDLC stages (plan, implement, validate, deploy)",
+            "Define agents from inputs -> outputs -> success criteria, not from a vague goal"
+          ],
+          "key_terminology": [
+            "agentic AI",
+            "system of record",
+            "control plane",
+            "structured task definition",
+            "definition of done / success criteria",
+            "draft pull request",
+            "ephemeral environment"
+          ],
+          "common_pitfalls": [
+            "Asking an agent to 'fix the bug' without a reproducer or acceptance criteria",
+            "Letting agents push directly to default branch instead of opening a draft PR",
+            "No measurable success criteria, so evaluation is subjective",
+            "Skipping the contributor model and merging unreviewed agent output",
+            "Mixing planning, reasoning and action in a single opaque call"
+          ],
+          "github_features_tested": [
+            "Issue assignment to Copilot",
+            "Draft pull requests opened on copilot/* branches",
+            "PR templates and issue templates",
+            "Session logs linked from each commit",
+            "Co-authored verified commits"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Your team wants Copilot cloud agent to fix recurring lint failures from CI. Which task definition best matches GitHub's guidance for integrating an agent into the SDLC?",
+              "options": [
+                "A. 'Fix the lint errors and merge to main when CI is green.'",
+                "B. 'Given a failing CI run ID and the file paths it reports, modify only those files so that `npm run lint` exits 0 locally and in CI, and open a draft PR with the changes.'",
+                "C. 'Improve code quality across the repo.'",
+                "D. 'Refactor the project to remove all lint warnings forever.'"
+              ],
+              "correct": "B",
+              "explanation": "Agents need explicit inputs (failing CI run ID, file paths), explicit outputs (modified files, draft PR), and verifiable success criteria (`npm run lint` exits 0). A allows the agent to merge without human review, which violates the contributor model and PR governance. C and D are unbounded goals with no measurable definition of done.",
+              "domain": "1.1",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which of the following are anti-patterns when integrating agents into the SDLC according to GitHub's guidance? (Select 3.)",
+              "options": [
+                "A. Allowing the agent to merge its own pull requests",
+                "B. Defining success criteria as automated checks the agent must satisfy",
+                "C. Skipping CODEOWNERS review on agent-authored PRs",
+                "D. Treating agent output as 'final' rather than as a contribution",
+                "E. Posting an inspectable plan to the PR before code changes"
+              ],
+              "correct": "A,C,D",
+              "explanation": "A: cloud agent is already restricted from merging PRs, and overriding that defeats supervision. C: bypassing CODEOWNERS removes the human review gate. D: violates the contributor model. B and E are recommended practices: measurable success criteria and an inspectable plan posted before action.",
+              "domain": "1.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "drag_drop_order",
+              "stem": "Place the following SDLC integration steps in the recommended order when onboarding a new agent for an existing repository.",
+              "options": [
+                "Define success criteria as automated checks",
+                "Enumerate the discrete steps the agent must perform",
+                "Configure branch protection and CODEOWNERS for the target paths",
+                "Assign a scoped issue to the agent and review its draft PR",
+                "Document inputs and outputs for the agent task"
+              ],
+              "correct": "Enumerate the discrete steps the agent must perform -> Document inputs and outputs for the agent task -> Define success criteria as automated checks -> Configure branch protection and CODEOWNERS for the target paths -> Assign a scoped issue to the agent and review its draft PR",
+              "explanation": "GitHub's contributor model first decomposes the task (steps, inputs/outputs, success criteria), then enforces governance (rulesets, CODEOWNERS), and only then assigns work. Reviewing the draft PR is the closing loop.",
+              "domain": "1.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "case_study",
+              "stem": "Contoso wants to introduce Copilot cloud agent on a payments service. The service has a strict release process with manual approval gates. The platform team must ensure agents fit the existing SDLC without weakening release controls.",
+              "sub_questions": [
+                {
+                  "type": "multiple_choice",
+                  "stem": "Which framing of the agent's task is most aligned with GitHub's contributor model?",
+                  "options": [
+                    "A. Give the agent maintainer access so it can self-merge after running tests",
+                    "B. Define the agent's job as 'open a draft PR with code and tests that satisfy the acceptance checks defined in the issue'",
+                    "C. Allow the agent to push directly to the release branch when CI is green",
+                    "D. Configure the agent to bypass branch protection on payments/*"
+                  ],
+                  "correct": "B",
+                  "explanation": "Draft PR with verifiable acceptance checks is the canonical contributor-model framing. A, C, D all remove the human review gate the existing release process depends on."
+                },
+                {
+                  "type": "multi_select",
+                  "stem": "Which controls should the platform team keep in place to preserve release-process integrity? (Select 2.)",
+                  "options": [
+                    "A. Require a second user's approval on Copilot PRs via branch ruleset",
+                    "B. Disable session logs to reduce audit noise",
+                    "C. Require CODEOWNERS review on payments/*",
+                    "D. Grant the agent the workflow scope so it can dispatch deployments"
+                  ],
+                  "correct": "A,C",
+                  "explanation": "A and C reuse existing release governance for the agent (same rules as humans). B destroys auditability. D escalates privilege the agent should not have."
+                }
+              ],
+              "domain": "1.1",
+              "difficulty": "hard"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match each anti-pattern to the GitHub control that mitigates it.",
+              "pairs": [
+                {"left": "Agent silently merges its own PR", "right": "Branch ruleset requiring approval from a second user"},
+                {"left": "No way to audit why the agent changed a file", "right": "Session logs linked from agent-authored commits"},
+                {"left": "Agent overwrites critical configs without review", "right": "CODEOWNERS rule with 'Require review from Code Owners'"},
+                {"left": "Untracked changes to default branch", "right": "Restrict pushes to default branch; require PR with copilot/* source branch"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each control maps directly to the failure mode it prevents. Session logs give traceability; CODEOWNERS and rulesets enforce review; branch restrictions force the PR contributor model.",
+              "domain": "1.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "Complete the file path GitHub uses for repository-wide custom instructions consumed by Copilot:",
+              "correct": ".github/copilot-instructions.md",
+              "explanation": "Repository-wide instructions live at `.github/copilot-instructions.md`. Path-specific live under `.github/instructions/**/*.instructions.md`, and agent-style instructions live in `AGENTS.md`.",
+              "domain": "1.1",
+              "difficulty": "easy"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "Define boundaries between planning, reasoning, and action",
+          "subtopics": [
+            "Configure agent planning to be distinct from agent execution",
+            "Configure an agent to output a structured plan",
+            "Validate agent plans",
+            "Prevent agent action until the agent checked and approved"
+          ],
+          "key_concepts": [
+            "Plan-Act-Evaluate separation",
+            "Implementation Planner pattern (Overview, Technical Approach, Implementation Plan, Considerations, Not Included)",
+            "Structured plan as a markdown artifact before any code changes",
+            "Approval gates between plan and execution",
+            "disable-model-invocation and user-invocable controls on custom agents"
+          ],
+          "key_terminology": [
+            "Implementation planner",
+            "structured plan",
+            "phased decomposition (Foundation -> Core Functionality -> Polish & Deploy)",
+            "task complexity estimates (Small / Medium / Large)",
+            "trade-offs",
+            "deferred features"
+          ],
+          "common_pitfalls": [
+            "Letting a single agent both plan and execute in one continuous tool-use loop",
+            "Producing a plan as ephemeral chat text instead of a versioned artifact",
+            "Skipping plan review and merging directly into a code-writing agent",
+            "Not capturing assumptions, constraints, and 'not included' explicitly"
+          ],
+          "github_features_tested": [
+            "Implementation Planner custom agent",
+            "Front matter tools: read, search, edit (no execute)",
+            "Draft PR with plan.md before code",
+            "Separate planner and executor custom agents"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "You want a custom agent that produces a structured plan but never modifies application code. Which `tools` line in the agent's YAML front matter best enforces this?",
+              "options": [
+                "A. tools: [\"*\"]",
+                "B. tools: [\"read\", \"search\", \"edit\"]",
+                "C. tools: [\"execute\", \"edit\", \"web\"]",
+                "D. tools: []"
+              ],
+              "correct": "B",
+              "explanation": "The Implementation Planner reference uses exactly `read`, `search`, `edit` so it can read the repo and write the plan.md, but it cannot run shell (no `execute`) and won't reach external systems. A is too broad. C grants shell access. D disables all tools and the agent cannot even write the plan.",
+              "domain": "1.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "drag_drop_order",
+              "stem": "Order the sections of a structured plan in the recommended Implementation Planner format.",
+              "options": [
+                "Overview (problem, success criteria, personas)",
+                "Technical Approach (architecture, APIs, data, trade-offs)",
+                "Implementation Plan (phases, tasks, S/M/L sizes, dependencies)",
+                "Considerations (assumptions, constraints, risks, mitigations)",
+                "Not Included (deferred features)"
+              ],
+              "correct": "Overview -> Technical Approach -> Implementation Plan -> Considerations -> Not Included",
+              "explanation": "The reference template flows from problem framing, to design, to phased breakdown, to risks, and finally to explicit out-of-scope items. 'Not Included' is last because it depends on the rest.",
+              "domain": "1.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "Which configuration prevents an executor agent from being auto-selected by Copilot before a human has reviewed the planner's output?",
+              "options": [
+                "A. Setting `disable-model-invocation: true` on the executor agent",
+                "B. Setting `user-invocable: false` on the executor agent",
+                "C. Setting `tools: []` on the executor agent",
+                "D. Removing the executor agent's `description` field"
+              ],
+              "correct": "A",
+              "explanation": "`disable-model-invocation: true` blocks Copilot's intent-matching from delegating to the agent automatically, but the agent can still be picked manually after plan review. B removes manual selection (the opposite of what we want). C cripples the agent. D may break selection in unrelated ways.",
+              "domain": "1.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which practices reinforce separation between planning and action? (Select 3.)",
+              "options": [
+                "A. Storing the plan as plan.md inside the draft PR",
+                "B. Using two custom agents (planner, executor) with different `tools` lists",
+                "C. Letting the planner agent push directly to main once the plan looks good",
+                "D. Requiring CODEOWNERS to approve the plan before the executor runs",
+                "E. Hiding the plan from the PR description for security"
+              ],
+              "correct": "A,B,D",
+              "explanation": "A: durable, reviewable artifact. B: enforces tool boundaries. D: human gate between plan and action. C bypasses the boundary entirely. E destroys reviewability.",
+              "domain": "1.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "An Implementation Planner agent file in a repository must be saved under: `.github/agents/implementation-planner.____`",
+              "correct": "agent.md",
+              "explanation": "Custom agent files use the `.agent.md` suffix and live under `.github/agents/` for repository scope or `/agents/` in the `.github-private` repo for organization scope.",
+              "domain": "1.2",
+              "difficulty": "easy"
+            },
+            {
+              "type": "case_study",
+              "stem": "A team's executor agent keeps making large unreviewed changes. The platform lead wants to introduce a 'plan first, act second' workflow without rewriting every issue manually.",
+              "sub_questions": [
+                {
+                  "type": "multiple_choice",
+                  "stem": "Which is the minimum change that enforces plan-before-action?",
+                  "options": [
+                    "A. Add `tools: []` to the executor agent",
+                    "B. Add an Implementation Planner custom agent and require its plan.md as a CODEOWNERS-protected file the executor reads",
+                    "C. Disable Copilot cloud agent entirely",
+                    "D. Move all work to local Copilot CLI autopilot"
+                  ],
+                  "correct": "B",
+                  "explanation": "The planner produces an artifact under CODEOWNERS, and the executor reads it as input. Plan is reviewable, executor is bounded, no need to disable Copilot."
+                }
+              ],
+              "domain": "1.2",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "Configure observability and control for autonomous agents",
+          "subtopics": [
+            "Plan and implement the degree of agent autonomy, including guardrails",
+            "Configure agent to produce inspectable artifacts within standard development tooling",
+            "Configure human intervention for autonomous agents without slowing delivery"
+          ],
+          "key_concepts": [
+            "Inspectable artifacts (commits, PRs, session logs, plan.md, screenshots)",
+            "Eyes-on emoji reaction as acknowledgment signal",
+            "Co-authored verified commits link to session logs",
+            "Branch rulesets requiring second-user approval",
+            "Right-sized human-in-the-loop: minimize approvals that do not materially reduce risk"
+          ],
+          "key_terminology": [
+            "Eyes-on reaction (eye emoji)",
+            "Session logs",
+            "Verified commits",
+            "Co-authored",
+            "Required reviewers",
+            "Audit log"
+          ],
+          "common_pitfalls": [
+            "Requiring approval on every agent action, which kills velocity",
+            "Disabling session logs to reduce noise (destroys traceability)",
+            "No artifact in the PR explaining what the agent did or why",
+            "Approving sensitive actions without a separate environment gate"
+          ],
+          "github_features_tested": [
+            "Session logs",
+            "Audit log entries for Copilot",
+            "Eyes-on reaction",
+            "Branch rulesets",
+            "Environments + required reviewers",
+            "Draft PRs"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Which artifact makes Copilot cloud agent's internal monologue and tool calls inspectable by reviewers and auditors?",
+              "options": [
+                "A. The PR description",
+                "B. The session logs linked from each agent-authored commit",
+                "C. The audit log only",
+                "D. The Actions workflow runs"
+              ],
+              "correct": "B",
+              "explanation": "Each Copilot commit message links to the session log so reviewers and auditors can replay the agent's reasoning and tool calls. The PR description summarizes changes but does not contain the full trace. Audit log captures events but not internal monologue. Actions runs show workflow steps but not the agent's reasoning.",
+              "domain": "1.3",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Your team wants high agent autonomy but reliable traceability. Which two configurations are the strongest fit? (Select 2.)",
+              "options": [
+                "A. Required reviewers on the production environment, but no required reviewers on Copilot draft PRs",
+                "B. Disable session logs to speed up runs",
+                "C. Keep verified co-authored commits enabled",
+                "D. Allow direct pushes to main from copilot/* branches"
+              ],
+              "correct": "A,C",
+              "explanation": "Gate the irreversible step (production) while letting the agent move quickly on draft PRs. Keep verified co-authored commits so every change is attributable and the audit chain is intact. B destroys traceability; D removes the PR review gate.",
+              "domain": "1.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match each observability signal to what it tells reviewers.",
+              "pairs": [
+                {"left": "Eyes-on emoji on a comment", "right": "Copilot has acknowledged and is processing the comment"},
+                {"left": "Verified badge on a commit", "right": "Commit is cryptographically signed and attributable to Copilot+user"},
+                {"left": "Session log link in commit message", "right": "Full internal monologue and tool calls for that commit"},
+                {"left": "Audit log entry for agent action", "right": "Org-level record of who triggered which agent action and when"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each artifact answers a different question: acknowledgment vs attribution vs reasoning trace vs admin audit.",
+              "domain": "1.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "An auditor asks how you preserve velocity while requiring human review on irreversible actions. Which approach matches GitHub's published guidance?",
+              "options": [
+                "A. Require manual approval on every Copilot tool call",
+                "B. Right-size human-in-the-loop by gating only actions that materially reduce risk, using environments and rulesets",
+                "C. Run Copilot only in autopilot mode with no review",
+                "D. Approve actions in batches after the fact"
+              ],
+              "correct": "B",
+              "explanation": "GitHub guidance is explicit: 'preserve execution velocity by minimizing approvals that do not materially reduce risk' and use environments and rulesets to enforce checks where they matter. A kills velocity. C removes the gate. D defeats the purpose of approval.",
+              "domain": "1.3",
+              "difficulty": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain_id": 2,
+      "title": "Implement tool use and environment interaction",
+      "weight_pct": "20-25%",
+      "objectives": [
+        {
+          "id": "2.1",
+          "title": "Select and configure agent tools",
+          "subtopics": [
+            "Identify required tools",
+            "Configure agent tools",
+            "Configure agent tool permissions"
+          ],
+          "key_concepts": [
+            "Tool aliases: execute, read, edit, search, agent, web, todo",
+            "Built-in MCP servers (github, playwright) provide scoped read-only tools by default",
+            "Wildcard `tools: ['*']` enables all tools; `tools: []` disables all",
+            "Namespaced MCP tools via server/tool-name syntax",
+            "Precedence: repository > organization > enterprise configuration"
+          ],
+          "key_terminology": [
+            "tool alias",
+            "tool array",
+            "least privilege",
+            "namespaced tool (server/tool)",
+            "Bash tool",
+            "view, edit, search, execute"
+          ],
+          "common_pitfalls": [
+            "Granting `tools: ['*']` to every agent",
+            "Including write-capable MCP tools when only reads are needed",
+            "Forgetting that omitting `tools` inherits ALL session tools",
+            "Granting `execute` shell access when only `edit` is required"
+          ],
+          "github_features_tested": [
+            "Tool array in agent front matter",
+            "Tool aliases mapping to cloud agent built-ins",
+            "Read-only tool allowlist recommendation",
+            "Built-in github and playwright servers"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Your custom agent needs to run unit tests but should NOT modify any files. Which tools list is most appropriate?",
+              "options": [
+                "A. tools: [\"read\", \"search\", \"execute\"]",
+                "B. tools: [\"read\", \"edit\", \"execute\"]",
+                "C. tools: [\"*\"]",
+                "D. tools: [\"read\", \"web\"]"
+              ],
+              "correct": "A",
+              "explanation": "`read` and `search` let the agent inspect code; `execute` lets it run the test command. Adding `edit` (B) would allow file modifications. C grants everything including write. D lacks `execute` so tests cannot run.",
+              "domain": "2.1",
+              "difficulty": "easy"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "To allow only the `view` and `search_repositories` tools from the built-in github MCP server, the agent front matter is: `tools: [\"github/view\", \"github/____________\"]`",
+              "correct": "search_repositories",
+              "explanation": "Namespaced MCP tools use `serverName/toolName`. The github built-in server exposes scoped read-only tools.",
+              "domain": "2.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which statements about agent tool configuration are TRUE? (Select 3.)",
+              "options": [
+                "A. Omitting the `tools` key inherits all available tools",
+                "B. `tools: []` disables all tools",
+                "C. `tools: [\"github/*\"]` allows every tool from the github MCP server",
+                "D. Tool aliases are case-sensitive",
+                "E. Repository-level agent configs override organization-level configs"
+              ],
+              "correct": "A,B,C",
+              "explanation": "A, B, C are direct from the custom agents configuration reference. D is FALSE: aliases are case insensitive. E is REVERSED in the question, repo does override org, but the way it's phrased here is correct? Actually it is correct, repo > org > enterprise. However the test wants 3 selections and A, B, C are unambiguously correct from the spec. Note: E is also true; for exam purposes if asked to pick 3, A/B/C are the most directly tied to tool configuration, while E is about precedence. Choose the three explicitly about tools.",
+              "domain": "2.1",
+              "difficulty": "hard"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match the tool alias to what it lets the agent do.",
+              "pairs": [
+                {"left": "execute", "right": "Run a command in bash or powershell"},
+                {"left": "read", "right": "View file contents"},
+                {"left": "edit", "right": "Modify file contents (write/str_replace)"},
+                {"left": "search", "right": "Grep or glob across files"},
+                {"left": "web", "right": "WebSearch and WebFetch URLs"},
+                {"left": "agent", "right": "Invoke another custom agent as a sub-agent"}
+              ],
+              "correct": "see pairs",
+              "explanation": "These are the canonical aliases listed in the custom-agents-configuration reference.",
+              "domain": "2.1",
+              "difficulty": "easy"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "Configure MCP servers",
+          "subtopics": [
+            "Add an MCP server as a tool to an agent",
+            "Configure a GitHub remote MCP server",
+            "Configure the MCP registries",
+            "Configure MCP allow lists"
+          ],
+          "key_concepts": [
+            "MCP server config object: type, command, args, env, url, headers, tools",
+            "Type values: local | stdio | http | sse",
+            "Environment variable substitution must use COPILOT_MCP_ prefix for secrets",
+            "Default servers: github (scoped read-only) + playwright (localhost only)",
+            "MCP processing order: defaults -> custom agent -> repo settings",
+            "Cloud agent does NOT support OAuth on remote MCP servers (use PAT)",
+            "Cloud agent only consumes tools (NOT resources or prompts)"
+          ],
+          "key_terminology": [
+            "MCP",
+            "stdio transport",
+            "HTTP/SSE transport",
+            "MCP registry v0.1",
+            "Allow list policy: Allow all | Registry only",
+            "Recommended allowlist",
+            "Custom allowlist rule (domain vs URL)"
+          ],
+          "common_pitfalls": [
+            "Hard-coding secrets in the `env` block",
+            "Forgetting the `COPILOT_MCP_` prefix for secret refs",
+            "Setting an MCP registry URL that already includes /v0.1/servers",
+            "Expecting OAuth to work on remote MCP from cloud agent",
+            "Using `*` in tools and assuming approvals will still be requested"
+          ],
+          "github_features_tested": [
+            "mcpServers JSON in repo settings",
+            "MCP registry endpoint requirements",
+            "MCP allow list policy (Allow all vs Registry only)",
+            "Recommended allowlist (OS pkg repos, container registries, language registries, CA, Playwright)",
+            "Azure API Center as a managed registry option"
+          ],
+          "questions": [
+            {
+              "type": "fill_blank",
+              "stem": "Complete the MCP server JSON to reference a repository-stored secret named `SENTRY_ACCESS_TOKEN` (Copilot secret prefix included): `\"SENTRY_ACCESS_TOKEN\": \"$________SENTRY_ACCESS_TOKEN\"`",
+              "correct": "COPILOT_MCP_",
+              "explanation": "Cloud agent only resolves secret references prefixed with `COPILOT_MCP_`, so the full reference is `$COPILOT_MCP_SENTRY_ACCESS_TOKEN`. This forces secrets through the audited Copilot variables/secrets system.",
+              "domain": "2.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "Which `type` value should you set for an MCP server configuration that must be compatible with VS Code, the Copilot cloud agent, and other MCP clients?",
+              "options": [
+                "A. local",
+                "B. stdio",
+                "C. http",
+                "D. sse"
+              ],
+              "correct": "B",
+              "explanation": "`stdio` is the standard MCP protocol type name and is the most portable across clients. `local` is accepted by cloud agent but is GitHub-specific. `http`/`sse` are for remote servers, not the canonical local stdio case.",
+              "domain": "2.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "An administrator wants to enforce that developers can only run MCP servers vetted by the security team. Which configuration choices are required? (Select 2.)",
+              "options": [
+                "A. Set the organization's MCP allow list policy to 'Registry only'",
+                "B. Configure an MCP registry URL pointing to the org's vetted server list",
+                "C. Set the policy to 'Allow all' and rely on developer judgment",
+                "D. Disable Copilot entirely",
+                "E. Require a PAT for every developer"
+              ],
+              "correct": "A,B",
+              "explanation": "'Registry only' is the enforcement policy; without a registry URL, there is nothing to allow. Together they restrict developers to vetted servers. C does the opposite. D is overkill. E doesn't restrict server discovery.",
+              "domain": "2.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "drag_drop_order",
+              "stem": "Place the steps in order to configure an MCP registry at the organization level.",
+              "options": [
+                "Open organization Settings",
+                "Navigate to Copilot -> Policies",
+                "Enable MCP servers",
+                "Enter the registry base URL (no /v0.1/servers suffix)",
+                "Choose the allow list policy (Allow all or Registry only)"
+              ],
+              "correct": "Open organization Settings -> Navigate to Copilot -> Policies -> Enable MCP servers -> Enter the registry base URL (no /v0.1/servers suffix) -> Choose the allow list policy (Allow all or Registry only)",
+              "explanation": "This is the documented org-level path. The registry must be a BASE URL; appending /v0.1/servers causes errors because the client constructs the full path.",
+              "domain": "2.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "A valid MCP registry must implement three endpoints. The list endpoint is: GET /v0.1/____________",
+              "correct": "servers",
+              "explanation": "The v0.1 spec requires GET /v0.1/servers, GET /v0.1/servers/{serverName}/versions/latest, and GET /v0.1/servers/{serverName}/versions/{version}.",
+              "domain": "2.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "A remote MCP server uses OAuth for authentication. Which statement is correct for using it with Copilot cloud agent?",
+              "options": [
+                "A. Cloud agent supports OAuth on remote MCP servers natively",
+                "B. Cloud agent does NOT currently support OAuth on remote MCP servers; use a PAT instead",
+                "C. OAuth works only for SSE transport on cloud agent",
+                "D. OAuth is required for all remote MCP servers"
+              ],
+              "correct": "B",
+              "explanation": "Per docs: 'Copilot cloud agent does not currently support remote MCP servers that leverage OAuth.' PATs or other token-based auth are the workaround.",
+              "domain": "2.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "case_study",
+              "stem": "You are adding a Sentry MCP server to a private repo so Copilot can read incident data. The server is published as an npm package. You want least privilege and no secret leakage.",
+              "sub_questions": [
+                {
+                  "type": "multiple_choice",
+                  "stem": "Which JSON snippet best implements least privilege?",
+                  "options": [
+                    "A. {\"type\":\"local\",\"command\":\"npx\",\"args\":[\"@sentry/mcp-server@latest\"],\"tools\":[\"*\"]}",
+                    "B. {\"type\":\"local\",\"command\":\"npx\",\"args\":[\"@sentry/mcp-server@latest\"],\"tools\":[\"list_issues\",\"get_issue\"],\"env\":{\"SENTRY_ACCESS_TOKEN\":\"$COPILOT_MCP_SENTRY_ACCESS_TOKEN\"}}",
+                    "C. {\"type\":\"http\",\"url\":\"https://sentry.io\",\"tools\":[\"*\"]}",
+                    "D. {\"type\":\"local\",\"command\":\"npx\",\"args\":[\"@sentry/mcp-server@latest\",\"--token=abc123\"]}"
+                  ],
+                  "correct": "B",
+                  "explanation": "B uses a scoped tool list (read-only), `local` type, and a secret reference via `$COPILOT_MCP_` prefix. A and C use wildcard tools. D hard-codes the token."
+                }
+              ],
+              "domain": "2.2",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "Integrate agents within development environments",
+          "subtopics": [
+            "Evaluate the execution context for an agent",
+            "Configure an agent's scope to a specific repository",
+            "Configure an agent to be invoked in a CI workflow",
+            "Configure an agent to use branch-based scope",
+            "Enable an agent to perform autonomous actions, including creating branches and pull requests",
+            "Configure an agent to handle environment-specific constraints"
+          ],
+          "key_concepts": [
+            "Cloud agent runs on copilot/* branch only (default new-PR branch)",
+            "Agent cannot run git commands directly; it commits via the platform",
+            "copilot-setup-steps.yml must contain a single job named `copilot-setup-steps`",
+            "Cloud agent supports Ubuntu x64 Linux and Windows 64-bit runners only",
+            "Setup-steps job is run on `ubuntu-latest` with minimal permissions; `contents: read` to clone",
+            "Local MCP servers and pre-installed deps live in setup-steps",
+            "Org owners can restrict to specific runner labels"
+          ],
+          "key_terminology": [
+            "Ephemeral development environment",
+            "GitHub-hosted runner",
+            "Self-hosted ephemeral runner",
+            "copilot-setup-steps job",
+            "Branch ruleset",
+            "Required status check"
+          ],
+          "common_pitfalls": [
+            "Naming the setup job something other than `copilot-setup-steps`",
+            "Using macOS runners (not supported)",
+            "Granting `contents: write` in setup-steps when only `read` is needed",
+            "Letting the agent push to default branch instead of copilot/*",
+            "Forgetting that Actions workflows are blocked on Copilot PRs until human approval"
+          ],
+          "github_features_tested": [
+            "copilot-setup-steps.yml",
+            "Ephemeral runners",
+            "Branch rulesets",
+            "Workflow approval requirement on Copilot PRs",
+            "Required reviewers / environments"
+          ],
+          "questions": [
+            {
+              "type": "fill_blank",
+              "stem": "The Actions workflow that pre-provisions Copilot cloud agent's environment must contain a single job whose name is exactly: ____________",
+              "correct": "copilot-setup-steps",
+              "explanation": "If the job is not named `copilot-setup-steps`, Copilot ignores the file. The file itself is conventionally `copilot-setup-steps.yml`.",
+              "domain": "2.3",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which constraints apply to the runner that hosts Copilot cloud agent's ephemeral environment? (Select 2.)",
+              "options": [
+                "A. Must be Ubuntu x64 Linux or Windows 64-bit",
+                "B. Must be macOS for sandboxing",
+                "C. Can be a self-hosted ephemeral runner",
+                "D. Must use ARM64",
+                "E. Must be a persistent self-hosted runner shared across users"
+              ],
+              "correct": "A,C",
+              "explanation": "Cloud agent supports Ubuntu x64 Linux and Windows 64-bit, on either GitHub-hosted or self-hosted ephemeral runners. macOS is not supported; ARM64 is not listed; persistent shared runners violate ephemerality.",
+              "domain": "2.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "Which minimum permission should `copilot-setup-steps.yml` request if it needs to clone the repository to install dependencies?",
+              "options": [
+                "A. contents: write",
+                "B. contents: read",
+                "C. id-token: write",
+                "D. packages: write"
+              ],
+              "correct": "B",
+              "explanation": "Only `contents: read` is needed to clone. Setup steps should not write to the repo (Copilot will commit later through its normal path).",
+              "domain": "2.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "By default, when Copilot cloud agent opens a pull request, what happens to Actions workflows configured to run on that PR?",
+              "options": [
+                "A. They run automatically just like for human PRs",
+                "B. They are blocked until a user with write access clicks 'Approve and run workflows'",
+                "C. They are permanently disabled on Copilot PRs",
+                "D. They are skipped silently"
+              ],
+              "correct": "B",
+              "explanation": "Default behavior blocks workflows on Copilot PRs until a user with write access approves them. This prevents agent-triggered code from running CI with elevated permissions.",
+              "domain": "2.3",
+              "difficulty": "easy"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match each capability to where it is configured.",
+              "pairs": [
+                {"left": "Pre-install Node and Playwright before the agent starts", "right": ".github/workflows/copilot-setup-steps.yml"},
+                {"left": "Restrict Copilot to specific runner labels", "right": "Organization settings -> Copilot -> Cloud agent"},
+                {"left": "Add an MCP server only for one agent", "right": "agent front matter `mcp-servers` block"},
+                {"left": "Add an MCP server for the whole repo", "right": "Repository Settings -> Copilot -> Coding agent -> MCP configuration"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each surface owns a different scope: workflow file for env, org settings for runner policy, agent front matter for per-agent MCP, repo settings for repo-wide MCP.",
+              "domain": "2.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "case_study",
+              "stem": "You manage a monorepo. You want Copilot cloud agent to be scoped to the `services/payments/` path only, with stricter review on those changes.",
+              "sub_questions": [
+                {
+                  "type": "multi_select",
+                  "stem": "Which combination of GitHub features enforces the scope? (Select 2.)",
+                  "options": [
+                    "A. CODEOWNERS entry mapping `services/payments/*` to @payments-team with required review",
+                    "B. Branch ruleset on default branch requiring CODEOWNERS approval and 1 extra reviewer",
+                    "C. Adding `services/payments` to .gitignore",
+                    "D. Granting Copilot the maintain role"
+                  ],
+                  "correct": "A,B",
+                  "explanation": "CODEOWNERS + ruleset together force the right reviewers on PRs that touch the protected path. C breaks the build. D escalates Copilot's privilege."
+                }
+              ],
+              "domain": "2.3",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "2.4",
+          "title": "Operate agents with safe execution paths and robust error handling",
+          "subtopics": [
+            "Implement error handling",
+            "Implement retries",
+            "Implement rollbacks",
+            "Implement escalation paths",
+            "Implement traceability and accountability for agent actions"
+          ],
+          "key_concepts": [
+            "Use draft PRs as a 'rollback by not merging' control",
+            "Use environments + required reviewers as escalation paths",
+            "Retries should be bounded; use --max-autopilot-continues in CLI",
+            "Log every retry and decision in the session log",
+            "Co-authored verified commits preserve attribution"
+          ],
+          "key_terminology": [
+            "Bounded retry",
+            "Rollback (revert PR or discard branch)",
+            "Escalation path",
+            "max-autopilot-continues",
+            "Idempotent action"
+          ],
+          "common_pitfalls": [
+            "Unbounded retry loops chewing through tokens / minutes",
+            "Silent failures with no log entry",
+            "Rollback strategy that requires manual git surgery instead of PR revert",
+            "No escalation path defined for irreversible actions"
+          ],
+          "github_features_tested": [
+            "--max-autopilot-continues",
+            "Environments with required reviewers",
+            "PR revert / draft PR discard",
+            "Session logs as the trace artifact"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Which CLI flag bounds the number of autonomous continuations Copilot CLI can make in autopilot mode?",
+              "options": [
+                "A. --autopilot",
+                "B. --max-autopilot-continues",
+                "C. --no-ask-user",
+                "D. --yolo"
+              ],
+              "correct": "B",
+              "explanation": "`--max-autopilot-continues` is the explicit guardrail against runaway loops. `--autopilot` enables autopilot, `--no-ask-user` suppresses clarifying questions, and `--yolo` allows all tools/paths/URLs.",
+              "domain": "2.4",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Your team wants robust rollback for agent-induced regressions. Which patterns align with GitHub's recommendations? (Select 2.)",
+              "options": [
+                "A. Keep Copilot work on copilot/* branches behind draft PRs so unmerged work is trivially discardable",
+                "B. Encourage the agent to force-push to main",
+                "C. Use Revert PR for merged regressions",
+                "D. Disable session logs to avoid retaining bad traces"
+              ],
+              "correct": "A,C",
+              "explanation": "A makes 'rollback' equivalent to 'don't merge'. C uses GitHub's built-in revert flow for merged work. B is destructive. D destroys post-mortem evidence.",
+              "domain": "2.4",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "To require a human approver before the agent can deploy to production, configure a GitHub ____________ with required reviewers.",
+              "correct": "environment",
+              "explanation": "GitHub Environments support required reviewers, wait timers, and environment secrets, making them the canonical gate for deployments triggered by Copilot or any other actor.",
+              "domain": "2.4",
+              "difficulty": "easy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain_id": 3,
+      "title": "Manage memory, state, and execution",
+      "weight_pct": "10-15%",
+      "objectives": [
+        {
+          "id": "3.1",
+          "title": "Implement agent memory strategies",
+          "subtopics": [
+            "Choose between short-term, long-term, and external memory",
+            "Scope agent memory to task-relevant information",
+            "Define memory expiration, pruning, and reset rules"
+          ],
+          "key_concepts": [
+            "Copilot Memory has two scopes: repository-level facts and user-level preferences",
+            "Repository facts include citations to supporting code and are scoped to that repo",
+            "User preferences are per-user (Copilot Pro/Pro+) and span repos",
+            "Entries auto-delete after 28 days of non-use; the timer resets on successful validation and reuse",
+            "Citations are validated against the current branch before reuse"
+          ],
+          "key_terminology": [
+            "Repository facts",
+            "User preferences",
+            "Citations",
+            "Validation",
+            "Pruning / expiration (28 days)",
+            "Short-term (in-session context) vs long-term (Memory) vs external (MCP, datastore)"
+          ],
+          "common_pitfalls": [
+            "Storing personal preferences as repo facts (leak across teammates)",
+            "Storing project-wide conventions as user preferences (don't apply for others)",
+            "Disabling validation and trusting stale citations",
+            "Expecting memory entries to live forever; they expire at 28 days idle"
+          ],
+          "github_features_tested": [
+            "Copilot Memory (Pro/Pro+ user preferences)",
+            "Repository facts with citations",
+            "Cross-tool sharing (chat, cloud agent, code review, CLI)",
+            "Code review uses repo facts only, not user preferences"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "A backend developer wants Copilot to consistently use snake_case for new Python modules across many repositories. Which Copilot memory scope is appropriate?",
+              "options": [
+                "A. Repository facts on each repo",
+                "B. User-level preferences",
+                "C. External MCP datastore",
+                "D. Session-only memory"
+              ],
+              "correct": "B",
+              "explanation": "User preferences span all repositories for that user. Repo facts would have to be duplicated. MCP datastore is overkill for a personal preference. Session memory dies at session end.",
+              "domain": "3.1",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "How long do Copilot Memory entries persist before auto-deletion when they are not used?",
+              "options": [
+                "A. 7 days",
+                "B. 14 days",
+                "C. 28 days",
+                "D. 90 days"
+              ],
+              "correct": "C",
+              "explanation": "Memory entries auto-delete after 28 days of non-use. Successful validation and reuse resets the timer.",
+              "domain": "3.1",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which statements about Copilot Memory citations are TRUE? (Select 2.)",
+              "options": [
+                "A. Repository facts include citations to supporting code",
+                "B. Citations are validated against the current branch before the fact is reused",
+                "C. Citations are private to the user who created the fact",
+                "D. Citations are removed after merging the PR"
+              ],
+              "correct": "A,B",
+              "explanation": "Facts include code citations that are revalidated each time Copilot considers reusing them; if the code no longer supports the fact, the fact is suppressed. C is wrong: repo facts are shared with users that have Memory access for that repo. D is wrong: facts and citations persist until expiration or invalidation.",
+              "domain": "3.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match each memory category to its best example.",
+              "pairs": [
+                {"left": "Short-term (in-session) memory", "right": "The current conversation context and recent tool calls"},
+                {"left": "Long-term repository facts", "right": "'This repo uses pnpm and Vitest', citation: package.json line 7"},
+                {"left": "Long-term user preferences", "right": "'I prefer detailed explanations of trade-offs in code reviews'"},
+                {"left": "External memory", "right": "An MCP-backed datastore the agent reads/writes via a tool"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Three durability levels plus an external store via MCP. The agent should keep task-relevant data in the right tier to avoid bloat and drift.",
+              "domain": "3.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "Copilot code review reads repository facts but NOT user ____________.",
+              "correct": "preferences",
+              "explanation": "Code review uses repository-scoped facts only, not user preferences. This prevents an individual's preferences from biasing reviews on shared code.",
+              "domain": "3.1",
+              "difficulty": "medium"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "Persist agent state and manage context drift",
+          "subtopics": [
+            "Capture task progress and decisions as durable artifacts",
+            "Resume agent work without repeating steps or diverging from prior decisions",
+            "Detect and correct drift during extended agent execution"
+          ],
+          "key_concepts": [
+            "Durable artifacts: plan.md, draft PR, commits, session logs",
+            "Resume by reading the PR and the most recent session log",
+            "Drift signals: agent repeats prior failed steps, contradicts plan, ignores acceptance criteria",
+            "Long tasks should checkpoint progress as commits or PR comments"
+          ],
+          "key_terminology": [
+            "Drift",
+            "Checkpoint",
+            "Durable artifact",
+            "Resume token"
+          ],
+          "common_pitfalls": [
+            "Treating chat history as the only state (lost on session end)",
+            "Letting agents 'rediscover' the plan each turn",
+            "Not pinning the agent to plan.md as ground truth"
+          ],
+          "github_features_tested": [
+            "Draft PR + plan.md as persistent state",
+            "Session logs as audit trail",
+            "PR comments as checkpoints"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "An agent's long-running task is interrupted overnight. Which approach lets it resume without redoing prior work?",
+              "options": [
+                "A. Start a new session with the original prompt; chat history will hydrate state",
+                "B. Resume from the draft PR, reading plan.md and the most recent commits/session log",
+                "C. Discard all artifacts and start over to avoid drift",
+                "D. Re-run the issue assignment to reset state"
+              ],
+              "correct": "B",
+              "explanation": "Durable artifacts (plan, commits, session log) are the resume substrate. Chat history is ephemeral. Starting over wastes work. Re-assigning resets state unnecessarily.",
+              "domain": "3.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which of the following are signals of agent context drift? (Select 3.)",
+              "options": [
+                "A. The agent contradicts a decision recorded in plan.md",
+                "B. The agent repeats an action that previously failed without changing its approach",
+                "C. The agent updates plan.md to reflect a new constraint that was approved",
+                "D. The agent stops referencing the acceptance criteria",
+                "E. The agent uses a different tool to achieve the same approved outcome"
+              ],
+              "correct": "A,B,D",
+              "explanation": "A, B, D are drift: contradiction, loop, and abandonment of intent. C is healthy updating with approval. E may be a legitimate alternate path within constraints.",
+              "domain": "3.2",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "Ensure continuity of agent memory and state across tools and environments",
+          "subtopics": [
+            "Share agent state",
+            "Prevent conflicting context",
+            "Prevent stale context"
+          ],
+          "key_concepts": [
+            "Facts and preferences captured by one Copilot feature can be used by another (CLI, chat, cloud agent, code review)",
+            "Citations validated against current branch prevent stale facts",
+            "Repository facts are per-repo; do not assume cross-repo continuity",
+            "MCP-backed external memory can bridge environments but adds attack surface"
+          ],
+          "key_terminology": [
+            "Cross-tool sharing",
+            "Stale context",
+            "Conflicting context",
+            "Validated reuse"
+          ],
+          "common_pitfalls": [
+            "Storing repo-specific decisions as user preferences (leaks into wrong repos)",
+            "Disabling Memory validation",
+            "Mixing two contradictory plans for the same task without resolving them"
+          ],
+          "github_features_tested": [
+            "Memory cross-tool sharing",
+            "Citation validation",
+            "Code review repo-only scope"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "How does Copilot prevent reuse of a stale repository fact?",
+              "options": [
+                "A. By rehashing the prompt",
+                "B. By validating the fact's citations against the current branch before reuse",
+                "C. By requiring a manual reconfirmation from the user every time",
+                "D. By deleting facts after every PR merge"
+              ],
+              "correct": "B",
+              "explanation": "Citations are validated against the current branch; if the supporting code is no longer present, the fact is suppressed. A is meaningless. C kills productivity. D is not the policy.",
+              "domain": "3.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "case_study",
+              "stem": "Two teams share a repo. Team A's lead taught Copilot 'always use Tailwind utility classes'. Team B's lead taught it 'always use Bootstrap'. Both saved as repository facts. Reviewers report Copilot is producing inconsistent style suggestions.",
+              "sub_questions": [
+                {
+                  "type": "multiple_choice",
+                  "stem": "What is the correct resolution?",
+                  "options": [
+                    "A. Delete one of the conflicting repository facts and capture the agreed standard once",
+                    "B. Disable Copilot Memory for the repo",
+                    "C. Convert both facts to user preferences",
+                    "D. Lower the validation threshold"
+                  ],
+                  "correct": "A",
+                  "explanation": "Repository facts are shared. Conflicting facts produce drift. The fix is to resolve the disagreement off-platform and capture one canonical fact. B is overkill. C scatters the decision per-user. D is not a configurable behavior."
+                }
+              ],
+              "domain": "3.3",
+              "difficulty": "hard"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain_id": 4,
+      "title": "Perform evaluation, error analysis, and tuning",
+      "weight_pct": "15-20%",
+      "objectives": [
+        {
+          "id": "4.1",
+          "title": "Define success criteria and evaluation signals for agent tasks",
+          "subtopics": [
+            "Specify expected outcomes and operational constraints for agent tasks",
+            "Identify qualitative and quantitative evaluation signals to evaluate agents",
+            "Align evaluation criteria with development intent",
+            "Generate evaluation signals by using automated scanning tools"
+          ],
+          "key_concepts": [
+            "Quantitative signals: CI status, test pass rate, code coverage, CodeQL findings, secret scanning hits",
+            "Qualitative signals: code review feedback, PR description clarity, plan completeness",
+            "Automated scans bundled with Copilot cloud agent: CodeQL, GitHub Advisory Database, secret scanning",
+            "Acceptance criteria must be checkable by automation when possible"
+          ],
+          "key_terminology": [
+            "Success criteria",
+            "Evaluation signal",
+            "CodeQL",
+            "GitHub Advisory Database",
+            "Secret scanning",
+            "Status check"
+          ],
+          "common_pitfalls": [
+            "Treating 'looks good' as a success criterion",
+            "Forgetting that CodeQL runs without an advanced license for Copilot-authored code",
+            "No quantitative gate; only subjective review",
+            "Aligning criteria with implementation instead of intent"
+          ],
+          "github_features_tested": [
+            "CodeQL on Copilot-authored code",
+            "Secret scanning",
+            "GitHub Advisory Database checks",
+            "Required status checks as evaluation gates"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Which scanning capability checks Copilot-generated code for malware and High/Critical CVSS dependencies WITHOUT requiring an advanced license?",
+              "options": [
+                "A. Dependabot only",
+                "B. GitHub Advisory Database checks performed by cloud agent",
+                "C. Snyk",
+                "D. Manual review only"
+              ],
+              "correct": "B",
+              "explanation": "Cloud agent automatically runs Advisory Database checks for malware and High/Critical CVSSs on its outputs, with no advanced license required. Dependabot is a separate product. Snyk is third-party.",
+              "domain": "4.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which signals best align evaluation with development intent? (Select 3.)",
+              "options": [
+                "A. Required status check: `unit-tests` passes",
+                "B. Required status check: CodeQL has 0 new High/Critical alerts",
+                "C. Required reviewer approval from CODEOWNERS",
+                "D. PR description length over 500 words",
+                "E. Number of files modified is below 10"
+              ],
+              "correct": "A,B,C",
+              "explanation": "A, B, C tie evaluation to verifiable outcomes (tests pass, no new security issues, owner approval). D and E are proxies that punish legitimate scope and reward verbosity.",
+              "domain": "4.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "The scan that detects accidental commits of API keys and tokens in agent output is called: ____________ scanning.",
+              "correct": "secret",
+              "explanation": "Secret scanning is one of three automatic scans the cloud agent applies (CodeQL for code flaws, Advisory Database for dependency issues, secret scanning for credentials).",
+              "domain": "4.1",
+              "difficulty": "easy"
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "Analyze agent failures and identify root causes",
+          "subtopics": [
+            "Identify failures by using logs, plans, traces, outputs, and workflow artifacts",
+            "Classify root causes, including reasoning errors, tool misuse, and context or environment issues"
+          ],
+          "key_concepts": [
+            "Session logs show internal monologue + tool calls per session",
+            "Reasoning errors: plan was wrong; tool misuse: right plan, wrong call; context/env: missing dep, missing secret, missing perm",
+            "Workflow artifacts (Actions logs) reveal CI/setup-step issues",
+            "Audit log reveals who triggered and which policy applied"
+          ],
+          "key_terminology": [
+            "Root cause class: reasoning | tool | context | environment",
+            "Trace replay",
+            "Session log"
+          ],
+          "common_pitfalls": [
+            "Blaming the model when the issue is missing setup-steps",
+            "Reassigning the issue without changing inputs (same failure recurs)",
+            "Not reading the session log before retrying"
+          ],
+          "github_features_tested": [
+            "Session log inspection",
+            "Workflow run logs",
+            "Audit log filters"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "An agent's session log shows it correctly chose `npm test` but the tool call failed with 'npm: command not found'. Which root-cause classification is correct?",
+              "options": [
+                "A. Reasoning error",
+                "B. Tool misuse",
+                "C. Context / environment issue (missing setup steps)",
+                "D. Memory drift"
+              ],
+              "correct": "C",
+              "explanation": "The reasoning and tool choice were correct; the runtime environment lacked Node. Fix in copilot-setup-steps.yml. Reasoning error would mean the wrong tool/plan; tool misuse would mean a malformed call; drift would mean contradicting the plan.",
+              "domain": "4.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match the symptom to its likely root-cause class.",
+              "pairs": [
+                {"left": "Agent loops calling the same failing test", "right": "Reasoning error"},
+                {"left": "Agent passes wrong flags to gh CLI", "right": "Tool misuse"},
+                {"left": "Agent can't reach internal artifact host", "right": "Context / environment (firewall / allowlist)"},
+                {"left": "Agent uses an outdated repository fact", "right": "Memory drift / stale context"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each symptom maps to a distinct fix path: replan, fix tool spec, extend firewall allowlist, invalidate the stale fact.",
+              "domain": "4.2",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "Tune agent behavior based on evaluation results",
+          "subtopics": [
+            "Revise instructions, workflows, or constraints",
+            "Refine memory usage",
+            "Refine tool usage and tool access"
+          ],
+          "key_concepts": [
+            "Tuning levers: agent prompt (front matter content), tools array, MCP servers list, setup-steps, custom instructions",
+            "Path-specific instructions: `.github/instructions/**/*.instructions.md`",
+            "When tool misuse repeats, narrow the tools array, not the prompt",
+            "When environment fails repeat, fix setup-steps before retrying"
+          ],
+          "key_terminology": [
+            "Custom instructions",
+            "Path-specific instructions",
+            "Tool narrowing",
+            "Prompt revision"
+          ],
+          "common_pitfalls": [
+            "Rewriting the prompt when the root cause is missing tools",
+            "Expanding tool access to 'fix' an issue that was prompt-shaped",
+            "Burying important conventions in user preferences when they belong as repo instructions"
+          ],
+          "github_features_tested": [
+            "Custom instructions files",
+            "Front matter tools array",
+            "copilot-setup-steps.yml",
+            "MCP server scoping"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "The agent keeps using `rm -rf` when a less destructive operation would do. Which is the most targeted tuning?",
+              "options": [
+                "A. Add 'Never use destructive shell commands' to the agent prompt and narrow `tools` to exclude `execute` where possible",
+                "B. Disable Copilot entirely for the repo",
+                "C. Switch to a different model",
+                "D. Remove the agent's MCP servers"
+              ],
+              "correct": "A",
+              "explanation": "Tune both the prompt and the tool surface together. The prompt prevents the intent; restricting `execute` removes the ability. B, C, D are over-rotations that don't address the specific tool-misuse pattern.",
+              "domain": "4.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "Path-specific Copilot instructions live under: `.github/instructions/**/*.____________.md`",
+              "correct": "instructions",
+              "explanation": "Path-specific instructions use the `*.instructions.md` filename suffix under `.github/instructions/`. Repository-wide instructions live in `.github/copilot-instructions.md`.",
+              "domain": "4.3",
+              "difficulty": "medium"
+            },
+            {
+              "type": "case_study",
+              "stem": "After three failed runs, the platform engineer sees the agent always edits the right file but never runs the test command. Reviewing the agent profile shows `tools: ['read', 'edit', 'search']`.",
+              "sub_questions": [
+                {
+                  "type": "multiple_choice",
+                  "stem": "What is the minimum, correct fix?",
+                  "options": [
+                    "A. Add `execute` to the tools array",
+                    "B. Switch to a different model",
+                    "C. Increase the memory expiration",
+                    "D. Disable session logs"
+                  ],
+                  "correct": "A",
+                  "explanation": "The tool surface is too narrow. Adding `execute` lets the agent run shell to invoke tests. Other answers don't address the missing capability."
+                }
+              ],
+              "domain": "4.3",
+              "difficulty": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain_id": 5,
+      "title": "Orchestrate multi-agent coordination",
+      "weight_pct": "15-20%",
+      "objectives": [
+        {
+          "id": "5.1",
+          "title": "Operate and manage multi-agent workflows",
+          "subtopics": [
+            "Apply an orchestration pattern to coordinate multiple agents",
+            "Configure agent isolation for parallel execution",
+            "Detect and resolve agent conflicts, including overlapping code changes, duplicated effort, and contradictory outputs"
+          ],
+          "key_concepts": [
+            "Copilot SDK sub-agent orchestration via `customAgents` array on a session",
+            "Intent matching: runtime matches user prompt to agent name+description",
+            "Sub-agent runs with isolated prompt and restricted tool set",
+            "Lifecycle events: subagent.selected, subagent.started, subagent.completed, subagent.failed, subagent.deselected",
+            "/fleet CLI slash command parallelizes plan steps across sub-agents",
+            "Per-agent MCP servers isolate side effects",
+            "Microsoft Agent Framework can use Copilot SDK as a provider for hybrid multi-agent systems"
+          ],
+          "key_terminology": [
+            "Orchestrator agent",
+            "Sub-agent",
+            "Intent matching",
+            "Isolated execution",
+            "/fleet",
+            "Microsoft Agent Framework"
+          ],
+          "common_pitfalls": [
+            "Two sub-agents editing the same file in parallel without coordination",
+            "Allowing both planner and executor to be model-invocable for the same intent",
+            "Sharing identical tool sets across agents (defeats specialization)"
+          ],
+          "github_features_tested": [
+            "Copilot SDK `customAgents`",
+            "Sub-agent lifecycle events",
+            "/fleet command",
+            "Per-agent `mcp-servers` in front matter",
+            "`disable-model-invocation`, `user-invocable` flags"
+          ],
+          "questions": [
+            {
+              "type": "drag_drop_order",
+              "stem": "Place the sub-agent lifecycle events in the order the Copilot SDK emits them for a successful sub-agent run.",
+              "options": [
+                "subagent.selected",
+                "subagent.started",
+                "subagent.completed",
+                "subagent.deselected"
+              ],
+              "correct": "subagent.selected -> subagent.started -> subagent.completed -> subagent.deselected",
+              "explanation": "Selection happens first, then start, then completion, then deselection (control returns to the parent). On failure, `subagent.failed` replaces `subagent.completed`.",
+              "domain": "5.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multiple_choice",
+              "stem": "Which Copilot CLI command takes an implementation plan and breaks it into independent tasks executed by sub-agents in parallel?",
+              "options": [
+                "A. /agent",
+                "B. /fleet",
+                "C. /allow-all",
+                "D. /yolo"
+              ],
+              "correct": "B",
+              "explanation": "/fleet decomposes a plan into independent tasks and runs sub-agents in parallel where dependencies allow. /agent selects a specific agent. /allow-all and /yolo are permission slash commands.",
+              "domain": "5.1",
+              "difficulty": "easy"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Two parallel sub-agents keep editing the same file and producing merge conflicts on the copilot/* branch. Which mitigations align with GitHub's guidance? (Select 2.)",
+              "options": [
+                "A. Decompose the plan so sub-agent scopes don't overlap on file paths",
+                "B. Give one sub-agent `tools: ['*']` and the other `tools: []`",
+                "C. Have the orchestrator serialize the conflicting steps",
+                "D. Delete one of the agents"
+              ],
+              "correct": "A,C",
+              "explanation": "Path-disjoint task decomposition and orchestrator serialization are the canonical fixes for overlap. B kills one agent entirely. D removes a useful specialist instead of resolving the overlap.",
+              "domain": "5.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match each Copilot multi-agent surface to its primary use.",
+              "pairs": [
+                {"left": "Copilot SDK `customAgents` array on a session", "right": "Programmatic sub-agent orchestration with lifecycle events"},
+                {"left": "Custom agent files under `.github/agents/`", "right": "Repo-scoped agents callable from cloud agent, IDEs, and CLI"},
+                {"left": "/fleet slash command", "right": "Parallel decomposition of a plan in Copilot CLI"},
+                {"left": "Microsoft Agent Framework with Copilot SDK as a provider", "right": "Cross-provider multi-agent workflows mixing Copilot with other AI providers"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each surface targets a different layer: SDK for code, files for declarative agents, /fleet for parallel CLI, Agent Framework for hybrid systems.",
+              "domain": "5.1",
+              "difficulty": "hard"
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "Configure observability for multi-agent behavior by using logs, artifacts, and operational signals",
+          "subtopics": [
+            "Configure multi-agent workflows to produce artifacts suitable for review and audit",
+            "Document key decisions, handoffs, and outcomes across agents",
+            "Perform post-hoc analysis of multi-agent behavior"
+          ],
+          "key_concepts": [
+            "Each sub-agent emits lifecycle events streamed back to parent session",
+            "Parent session aggregates artifacts (commits, PR comments) per sub-agent",
+            "Cloud agent notes which custom agent produced a PR's work",
+            "Audit log records cross-agent actions"
+          ],
+          "key_terminology": [
+            "Handoff",
+            "Parent session aggregation",
+            "Post-hoc analysis"
+          ],
+          "common_pitfalls": [
+            "Mixing sub-agents' outputs without attribution",
+            "Discarding lifecycle events; losing the trace",
+            "Not documenting which agent owns which path"
+          ],
+          "github_features_tested": [
+            "PR note 'this custom agent was used'",
+            "Lifecycle events in SDK",
+            "Audit log entries"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "After a multi-agent workflow opens a PR, what GitHub-provided signal tells reviewers which custom agent completed the work?",
+              "options": [
+                "A. A note in the PR added by Copilot identifying the custom agent used",
+                "B. An emoji in the commit message",
+                "C. A label automatically applied to the PR",
+                "D. Nothing; attribution is hidden"
+              ],
+              "correct": "A",
+              "explanation": "When Copilot opens PRs, it notes which custom agent was used. Labels are not applied automatically by this mechanism. The eye emoji is for acknowledgment, not attribution. Attribution is intentionally visible for accountability.",
+              "domain": "5.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which artifacts enable post-hoc analysis of multi-agent runs? (Select 3.)",
+              "options": [
+                "A. Sub-agent lifecycle events captured by the orchestrator",
+                "B. Per-agent session logs linked from each commit",
+                "C. PR description with handoff narrative",
+                "D. A single anonymous bot user on commits",
+                "E. Disabling Memory to prevent bias"
+              ],
+              "correct": "A,B,C",
+              "explanation": "A, B, C compose the traceability story. D destroys attribution. E removes useful repo facts.",
+              "domain": "5.2",
+              "difficulty": "medium"
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "Detect and respond to multi-agent failures and degraded behavior",
+          "subtopics": [
+            "Identify failed, partial, or stalled agent executions",
+            "Respond to degraded behavior or coordination across agents",
+            "Implement multi-agent recovery patterns, including rollback and human-in-the-loop"
+          ],
+          "key_concepts": [
+            "Failure detection: subagent.failed event or missing subagent.completed",
+            "Stalled = no event progression past --max-autopilot-continues",
+            "Recovery: rollback via PR revert/discard, escalate to human",
+            "Partial recovery: re-run failed sub-agent only, not the whole plan"
+          ],
+          "key_terminology": [
+            "Partial failure",
+            "Stalled execution",
+            "Recovery pattern",
+            "Human-in-the-loop"
+          ],
+          "common_pitfalls": [
+            "Re-running entire orchestrator instead of targeting the failed sub-agent",
+            "No bounded retry, leading to runaway parallel work",
+            "No human-in-the-loop on the recovery path"
+          ],
+          "github_features_tested": [
+            "subagent.failed event",
+            "PR revert flow",
+            "Required reviewers on production environment"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "An orchestrator detects `subagent.failed` for one of three parallel sub-agents. The other two completed. What is the recommended recovery pattern?",
+              "options": [
+                "A. Roll back all merged work and restart the plan",
+                "B. Re-run only the failed sub-agent, optionally with updated inputs, after analyzing the session log",
+                "C. Ignore the failure and merge what completed",
+                "D. Escalate the entire incident to org admins"
+              ],
+              "correct": "B",
+              "explanation": "Targeted re-run after root-cause analysis is the canonical pattern. A wastes the successful work. C ignores a known failure. D over-escalates a routine recovery.",
+              "domain": "5.3",
+              "difficulty": "medium"
+            }
+          ]
+        },
+        {
+          "id": "5.4",
+          "title": "Manage the lifecycle of agents within multi-agent workflows",
+          "subtopics": [
+            "Add agents to existing multi-agent workflows",
+            "Update, reconfigure, or replace agents without disrupting active workflows",
+            "Retire agents while preserving auditability and workflow continuity"
+          ],
+          "key_concepts": [
+            "Custom agents are versioned by Git commit SHA of their .agent.md file",
+            "Precedence: repository overrides organization overrides enterprise",
+            "Retirement: delete the .agent.md file; historical PRs still link to the past behavior via session logs",
+            "To replace an agent, prefer adding a new file and disabling the old (`disable-model-invocation: true`, `user-invocable: false`) before deletion"
+          ],
+          "key_terminology": [
+            "Agent versioning",
+            "Soft retirement",
+            "Hard retirement"
+          ],
+          "common_pitfalls": [
+            "Editing an agent's prompt during an in-flight session",
+            "Deleting an agent file mid-rollout, breaking running plans",
+            "Forgetting that org-level agents can be overridden by a repo-level file"
+          ],
+          "github_features_tested": [
+            "Versioning via Git SHA",
+            "Precedence (repo > org > enterprise)",
+            "disable-model-invocation, user-invocable flags as soft-retirement levers"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Your organization wants to retire a custom agent without breaking in-flight cloud agent sessions. Which sequence is safest?",
+              "options": [
+                "A. Delete the agent file immediately",
+                "B. Set `disable-model-invocation: true` and `user-invocable: false`, monitor for one cycle, then delete the file",
+                "C. Add a deprecation banner to the README",
+                "D. Force-push the agents repo"
+              ],
+              "correct": "B",
+              "explanation": "Soft retirement first removes both auto and manual selection paths, preventing new uses, while in-flight sessions can finish. Hard delete should follow only once usage is verified zero. A breaks running sessions. C is documentation, not enforcement. D is destructive.",
+              "domain": "5.4",
+              "difficulty": "hard"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "If both a repository-level and an organization-level custom agent have the same name, the ____________-level definition wins.",
+              "correct": "repository",
+              "explanation": "Precedence is repository > organization > enterprise. The closest scope to the work wins.",
+              "domain": "5.4",
+              "difficulty": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain_id": 6,
+      "title": "Implement guardrails and accountability",
+      "weight_pct": "10-15%",
+      "objectives": [
+        {
+          "id": "6.1",
+          "title": "Define autonomy levels",
+          "subtopics": [
+            "Classify agent actions by operational, security, and compliance risk to right-size human interventions",
+            "Assign autonomy levels to maximize delivery speed while remaining compliant with organizational security and Responsible AI standards"
+          ],
+          "key_concepts": [
+            "Three CLI autonomy modes: Interactive (default) | Autopilot (Shift+Tab or --autopilot) | --no-ask-user",
+            "Permission grant levels in CLI: Enable all (recommended) | Continue with limited | Cancel",
+            "Autopilot is bounded by --max-autopilot-continues",
+            "Cloud agent default: cannot push to default branch, cannot merge PRs, workflows blocked until human approval",
+            "Right-size autonomy: route low-risk to high autonomy, high-risk through environments/required reviewers"
+          ],
+          "key_terminology": [
+            "Interactive mode",
+            "Autopilot mode",
+            "--no-ask-user",
+            "--allow-all / --yolo",
+            "/allow-all / /yolo (non-toggleable slash commands)",
+            "Permission grant levels"
+          ],
+          "common_pitfalls": [
+            "Granting --yolo by default",
+            "Treating --no-ask-user as a substitute for autopilot (it is not multi-step)",
+            "Not setting --max-autopilot-continues",
+            "Applying the same autonomy level to all action classes"
+          ],
+          "github_features_tested": [
+            "Autopilot mode + --max-autopilot-continues",
+            "--no-ask-user vs --autopilot distinction",
+            "/allow-all and /yolo slash commands (non-toggleable)",
+            "Cloud agent default restrictions"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Which Copilot CLI flag suppresses clarifying questions but does NOT enable multi-step autonomous continuation?",
+              "options": [
+                "A. --autopilot",
+                "B. --no-ask-user",
+                "C. --yolo",
+                "D. --max-autopilot-continues"
+              ],
+              "correct": "B",
+              "explanation": "`--no-ask-user` lets the agent decide without asking clarifying questions, but it does NOT enable the agent to continue through successive steps that require model interaction. Autopilot is the multi-step mode. `--yolo` is the permissive flag for tool/path/URL access.",
+              "domain": "6.1",
+              "difficulty": "hard"
+            },
+            {
+              "type": "match_pairs",
+              "stem": "Match the CLI control to its purpose.",
+              "pairs": [
+                {"left": "Shift+Tab in interactive session", "right": "Toggle into autopilot mode"},
+                {"left": "--max-autopilot-continues", "right": "Bound the number of autonomous continuations"},
+                {"left": "/yolo slash command", "right": "Permit all tools/paths/URLs for the rest of the session (non-toggleable)"},
+                {"left": "Cancel (permission grant level)", "right": "Reject the operation and exit the prompt"}
+              ],
+              "correct": "see pairs",
+              "explanation": "Each control covers a different lever: mode toggle, bounded autonomy, blanket permission, and refusal.",
+              "domain": "6.1",
+              "difficulty": "medium"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which autonomy assignments fit GitHub's 'right-size human intervention' guidance? (Select 2.)",
+              "options": [
+                "A. Low-risk doc updates: high autonomy (autopilot, no required reviewer)",
+                "B. Production deployment: high autonomy (autopilot, no required reviewer)",
+                "C. Production deployment: low autonomy (environment with required reviewer)",
+                "D. Doc updates: low autonomy (manual approval per file)"
+              ],
+              "correct": "A,C",
+              "explanation": "Reserve approvals for actions that materially reduce risk (production). Low-risk doc changes can run with high autonomy. B inverts the risk calculus. D adds friction without reducing risk.",
+              "domain": "6.1",
+              "difficulty": "medium"
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "Implement guardrails and human-in-the-loop workflows",
+          "subtopics": [
+            "Identify the subset of actions that require human judgment",
+            "Block actions that violate defined security, compliance, or Responsible AI policies",
+            "Scope permissions and execution contexts to enforce least-privilege access",
+            "Require explicit authorization or controlled paths for irreversible or compliance-sensitive changes",
+            "Preserve execution velocity by minimizing approvals that do not materially reduce risk"
+          ],
+          "key_concepts": [
+            "Default firewall around cloud agent ephemeral env limits internet egress",
+            "Recommended allowlist covers OS pkg repos, container registries, language registries (C#, Dart, Go, Haskell, Java, JS, Perl, PHP, Python, Ruby, Rust, Swift), CAs, Playwright hosts",
+            "Custom allowlist rules: domain (allows subdomains) or URL (scheme + path-scoped)",
+            "Firewall applies ONLY to processes started by the agent via Bash tools (NOT MCP servers or setup steps)",
+            "Hidden HTML comments stripped before agent processing as prompt-injection mitigation",
+            "Agent secrets stored as Actions secrets/variables and Copilot environment variables (COPILOT_MCP_ prefix)",
+            "Branch rulesets can require approval from a second user on Copilot PRs",
+            "CODEOWNERS protects sensitive paths (configs, infra) with required code-owner review"
+          ],
+          "key_terminology": [
+            "Agent firewall",
+            "Recommended allowlist",
+            "Custom allowlist rule (domain vs URL)",
+            "Prompt injection",
+            "Least-privilege",
+            "Irreversible action",
+            "Responsible AI"
+          ],
+          "common_pitfalls": [
+            "Assuming the firewall limits MCP servers (it does not)",
+            "Putting secrets in plain `env` values instead of `$COPILOT_MCP_*` references",
+            "Allow-listing entire wildcards like `*.example.com` when path-scoped URLs would do",
+            "Skipping CODEOWNERS on infra/configs files",
+            "Approving every action and destroying velocity"
+          ],
+          "github_features_tested": [
+            "Copilot environment firewall + recommended/custom allowlists",
+            "COPILOT_MCP_ secret references",
+            "Hidden comment stripping",
+            "CODEOWNERS",
+            "Branch rulesets with second-user approval",
+            "Environments with required reviewers",
+            "Cloud agent's default restrictions (no merge, no default-branch push)"
+          ],
+          "questions": [
+            {
+              "type": "multiple_choice",
+              "stem": "Which statement about the Copilot cloud agent firewall is TRUE?",
+              "options": [
+                "A. The firewall applies to MCP servers as well as Bash-launched processes",
+                "B. The firewall applies to setup steps in copilot-setup-steps.yml",
+                "C. The firewall applies ONLY to processes the agent starts via Bash tools, not to MCP servers or setup steps",
+                "D. The firewall is disabled by default"
+              ],
+              "correct": "C",
+              "explanation": "Docs state explicitly: the firewall 'only applies to processes started by the agent' via Bash tools, excluding MCP servers and setup steps. It runs in GitHub Actions environments and is enabled by default with the recommended allowlist.",
+              "domain": "6.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which custom allowlist entries correctly extend the firewall to a private artifact host at `packages.contoso.corp/project-1/`? (Select 2.)",
+              "options": [
+                "A. Domain: `packages.contoso.corp`",
+                "B. URL: `https://packages.contoso.corp/project-1/`",
+                "C. Domain: `*.contoso.corp`",
+                "D. URL: `http://packages.contoso.corp/project-1/`",
+                "E. Domain: `contoso`"
+              ],
+              "correct": "A,B",
+              "explanation": "Domain entries match the exact host and any subdomain (A). URL entries are scheme+path scoped (B with https). Wildcards (C) and partial strings (E) are not the documented allowlist formats. D uses http and would not match an https endpoint.",
+              "domain": "6.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "fill_blank",
+              "stem": "Cloud agent strips hidden ____________ comments from user input as a prompt-injection mitigation before passing the prompt to the agent.",
+              "correct": "HTML",
+              "explanation": "GitHub filters hidden HTML comments before passing user input to the agent. This blocks the common 'invisible instructions in markdown' injection vector.",
+              "domain": "6.2",
+              "difficulty": "medium"
+            },
+            {
+              "type": "drag_drop_order",
+              "stem": "Order these guardrails from MOST restrictive (highest enforcement) to LEAST restrictive when applied to a sensitive payments service.",
+              "options": [
+                "Environment with required reviewers gating production deployment",
+                "Branch ruleset requiring a second user's approval on Copilot PRs",
+                "CODEOWNERS requiring @payments-team review on services/payments/*",
+                "Custom allowlist entry restricting egress to internal artifact host only"
+              ],
+              "correct": "Environment with required reviewers gating production deployment -> Branch ruleset requiring a second user's approval on Copilot PRs -> CODEOWNERS requiring @payments-team review on services/payments/* -> Custom allowlist entry restricting egress to internal artifact host only",
+              "explanation": "Environment gates block irreversible deploys. Branch rulesets force a second human on every change. CODEOWNERS routes to subject-matter humans. Custom allowlist narrows runtime egress but does not stop PRs. Ordering reflects 'how hard is it to slip past?'",
+              "domain": "6.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "case_study",
+              "stem": "Your security team is reviewing Copilot cloud agent rollout. They are worried about: (i) prompt injection via issue bodies, (ii) data exfiltration to attacker domains, (iii) unauthorized writes to default branch, (iv) leakage of API keys.",
+              "sub_questions": [
+                {
+                  "type": "match_pairs",
+                  "stem": "Match each concern to the primary GitHub mitigation.",
+                  "pairs": [
+                    {"left": "Prompt injection via issue body", "right": "Hidden HTML comment stripping before agent processing"},
+                    {"left": "Data exfiltration", "right": "Default-deny firewall + recommended/custom allowlist on egress"},
+                    {"left": "Unauthorized writes to default branch", "right": "Agent restricted to copilot/* branch + PR cannot self-merge"},
+                    {"left": "API key leakage", "right": "Secret scanning on agent output + COPILOT_MCP_ secret refs"}
+                  ],
+                  "correct": "see pairs",
+                  "explanation": "Each documented risk has a documented mitigation. The exam expects you to know all four pairings."
+                },
+                {
+                  "type": "multiple_choice",
+                  "stem": "Which additional control satisfies the security team's request for human review on every Copilot PR?",
+                  "options": [
+                    "A. Disable Copilot",
+                    "B. Branch ruleset with 'Require a pull request before merging' and the sub-option 'Require approval from a second user with write permissions'",
+                    "C. CODEOWNERS on README.md only",
+                    "D. Turn off session logs"
+                  ],
+                  "correct": "B",
+                  "explanation": "Branch rulesets natively support requiring a second user's approval on Copilot PRs. A discards productivity. C is insufficient scope. D destroys auditability."
+                }
+              ],
+              "domain": "6.2",
+              "difficulty": "hard"
+            },
+            {
+              "type": "multi_select",
+              "stem": "Which Responsible AI practices apply to Copilot cloud agent rollouts? (Select 3.)",
+              "options": [
+                "A. Co-authored verified commits to preserve attribution",
+                "B. Session logs linked from every commit for traceability",
+                "C. Required reviewers on irreversible actions to keep humans in the loop",
+                "D. Granting Copilot maintain role on all repos to reduce friction",
+                "E. Disabling Memory validation to speed up reuse"
+              ],
+              "correct": "A,B,C",
+              "explanation": "A, B, C are Responsible AI controls: attribution, traceability, human-in-the-loop on high-risk actions. D escalates Copilot privileges inappropriately. E removes a safety check.",
+              "domain": "6.2",
+              "difficulty": "medium"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

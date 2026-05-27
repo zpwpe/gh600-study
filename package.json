@@ -1,0 +1,35 @@
+{
+  "name": "gh600-study",
+  "private": false,
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Free, open study app for the GH-600 GitHub Certified: Agentic AI Developer (beta) exam. SPA with cram plan, 27 gotchas, 12 artifact labs, 94 practice questions, and a timed 50-question mock exam.",
+  "keywords": ["gh-600", "gh600", "github", "agentic-ai", "copilot", "certification", "exam-prep", "mcp", "custom-agents"],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  }
+}
